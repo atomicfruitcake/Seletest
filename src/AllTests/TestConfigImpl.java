@@ -1,4 +1,6 @@
-package functions;
+package AllTests;
+
+import AllTests.TestConfig;
 
 public class TestConfigImpl extends TestConfig {
 

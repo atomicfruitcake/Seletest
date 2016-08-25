@@ -1,6 +1,4 @@
-package functions;
-
-import static AllTests.properties.*;
+package AllTests;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -41,7 +39,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.TestNG;
 import org.testng.collections.Lists;
-import org.json.*;
 
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
@@ -58,17 +55,13 @@ public class CommonFunctions {
 			.getName());
 
 	static File directory = null;
-	String ENV = TestConfigImpl.testConfig.getEnvironment();
+	static String ENV = TestConfigImpl.testConfig.getEnvironment();
 	
 	public static void startBrowser(WebDriver driver, String url) {
 		LOGGER.info("Starting browser with URL: " + url);
 		driver.get(url);
 		driver.manage().window().maximize();
 
-	}
-
-	public static void startHomepage(WebDriver driver) {
-		startBrowser(driver, URL);
 	}
 
 	public static String defaultReturner(String value, String defaultValue) {
@@ -83,17 +76,14 @@ public class CommonFunctions {
 		Map<String, String> environmentSelect = new HashMap<String, String>();
 		environmentSelect.put("ENV_NAME", "ENV_URL");
 		// Fill with all required environments
-		final String ENV = environmentSelect.get(ENV);
-		return ENV;
+		return environmentSelect.get(ENV);;
 	}
 
 	public static String getIpAddressAppServer() {
-		String env = getEnvironment();
 		Map<String, String> ipSelect = new HashMap<String, String>();
-		ipSelect.put("ENV_NAME, "ENV_IP");
+		ipSelect.put("ENV_NAME, ", "ENV_IP");
 		// FIll with all required app servers
-		final String ipAddress = ipSelect.get(env);
-		return ipAddress;
+		return ipSelect.get(ENV);
 	}
 
 	public static Map<String, String> setTestNGParameters() {

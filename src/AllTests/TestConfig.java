@@ -1,9 +1,8 @@
-package functions;
-
+package AllTests;
 /*
  * Creates the test config class for handling settings
  */
-class TestConfig {
+public abstract class TestConfig {
 	private String environment;
 	private String testSuite;
 	private String browser;

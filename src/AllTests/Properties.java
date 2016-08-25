@@ -1,10 +1,10 @@
-package functions;
+package AllTests;
 
 /**
- * @author sambass
+ * @author atomicfruitcake
  *
  */
-public class properties {
+public class Properties {
 
 	//Login Details
 	public static final String USERNAME = TestConfigImpl.testConfig.getUsername();

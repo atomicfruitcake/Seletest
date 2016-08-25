@@ -1,18 +1,22 @@
-package functions;
+package AllTests;
+
+import static AllTests.Properties.CHROME;
+import static AllTests.Properties.CHROMEOSX;
+import static AllTests.Properties.FIREFOX;
+import static AllTests.Properties.IE11;
+import static AllTests.Properties.PHANTOMJS;
+
+import static AllTests.TestConfigImpl.testConfig;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-
 /**
  * @author sambass
  *
@@ -27,9 +31,9 @@ public class BasePage {
 	@BeforeMethod(alwaysRun = true)
 	public void startUp() throws IOException {
 		CommonFunctions.createDino();
-		LOGGER.info("Starting browser: " + TestConfigImpl.testConfig.getBrowser(););
+		LOGGER.info("Starting browser: " + TestConfigImpl.testConfig.getBrowser());
 
-		switch (TestConfigImpl.testConfig.getBrowser();) {
+		switch (TestConfigImpl.testConfig.getBrowser()) {
 		// Working on multi OS support
 		case "Chrome": {
 		switch (CommonFunctions.operatingSystem()) {
@@ -67,4 +71,8 @@ public class BasePage {
 			driver.quit();
 		}
 	}
+}
+
+public class BasePage {
+
 }
