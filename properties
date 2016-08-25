@@ -21,4 +21,7 @@ public class properties {
 	public static final String CHROME = "WebDrivers\\chromedriver.exe";
 	public static final String CHROMEOSX = "WebDrivers\\chromedriver";
 	public static final String FIREFOX = "";	
+	
+	//Test Packages
+	public static final String []R1_REGRESSION_PACKAGES = new String[]{"Package1", "Package2"};
 }
