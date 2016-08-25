@@ -2,6 +2,10 @@ package AllTests;
 /*
  * Creates the test config class for handling settings
  */
+/**
+ * @author atomicfruitcake
+ *
+ */
 public abstract class TestConfig {
 	private String environment;
 	private String testSuite;

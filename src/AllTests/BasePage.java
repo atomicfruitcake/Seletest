@@ -18,7 +18,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 /**
- * @author sambass
+ * @author atomicfruitcake
  *
  */
 public class BasePage {

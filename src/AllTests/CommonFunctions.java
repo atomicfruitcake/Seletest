@@ -46,7 +46,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 /**
- * @author sambass
+ * @author atomicfruitcake
  *
  */
 public class CommonFunctions {

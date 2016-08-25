@@ -1,7 +1,10 @@
 package AllTests;
 
 import AllTests.TestConfig;
-
+/**
+ * @author atomicfruitcake
+ *
+ */
 public class TestConfigImpl extends TestConfig {
 
 	static TestConfig testConfig;
