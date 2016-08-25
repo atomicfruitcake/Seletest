@@ -1,4 +1,4 @@
-package AllTests;
+package functions;
 
 import static AllTests.properties.*;
 
