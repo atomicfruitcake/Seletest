@@ -343,7 +343,7 @@ public class CommonFunctions {
 				"org.uncommons.reportng.JUnitXMLReporter");
 		Element test = suite.addElement("test").addAttribute("name", "tests");
 		Element packages = test.addElement("packages");
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < R1_REGRESSION_PACKAGES.length; i++)  {
 			packages.addElement("package").addAttribute("name",
 				R1_REGRESSION_PACKAGES[i]);
 			}
