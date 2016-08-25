@@ -58,7 +58,8 @@ public class CommonFunctions {
 			.getName());
 
 	static File directory = null;
-
+	String ENV = TestConfigImpl.testConfig.getEnvironment();
+	
 	public static void startBrowser(WebDriver driver, String url) {
 		LOGGER.info("Starting browser with URL: " + url);
 		driver.get(url);
@@ -79,18 +80,17 @@ public class CommonFunctions {
 	}
 
 	public static String environmentSelector() {
-		String env = getEnvironment();
 		Map<String, String> environmentSelect = new HashMap<String, String>();
-		environmentSelect.put(ENV, ENV_URL);
+		environmentSelect.put("ENV_NAME", "ENV_URL");
 		// Fill with all required environments
-		final String ENV = environmentSelect.get(env);
+		final String ENV = environmentSelect.get(ENV);
 		return ENV;
 	}
 
 	public static String getIpAddressAppServer() {
 		String env = getEnvironment();
 		Map<String, String> ipSelect = new HashMap<String, String>();
-		ipSelect.put(ENV, ENV_IP);
+		ipSelect.put("ENV_NAME, "ENV_IP");
 		// FIll with all required app servers
 		final String ipAddress = ipSelect.get(env);
 		return ipAddress;
