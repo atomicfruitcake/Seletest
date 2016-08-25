@@ -1,4 +1,4 @@
-package AllTests;
+package functions;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -27,10 +27,9 @@ public class BasePage {
 	@BeforeMethod(alwaysRun = true)
 	public void startUp() throws IOException {
 		CommonFunctions.createDino();
-		String browser = TestConfig.getBrowser();
-		LOGGER.info("Starting browser: " + browser);
+		LOGGER.info("Starting browser: " + TestConfigImpl.testConfig.getBrowser(););
 
-		switch (browser) {
+		switch (TestConfigImpl.testConfig.getBrowser();) {
 		// Working on multi OS support
 		case "Chrome": {
 		switch (CommonFunctions.operatingSystem()) {
