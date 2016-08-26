@@ -12,6 +12,7 @@ public abstract class TestConfig {
 	private String browser;
 	private String username;
 	private String password;
+	private Boolean jiraUpdate;
 
 	public String getEnvironment() {
 		return environment;
@@ -51,5 +52,13 @@ public abstract class TestConfig {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Boolean getJiraUpdate() {
+		return jiraUpdate;
+	}
+
+	public void setJiraUpdate(Boolean jiraUpdate) {
+		this.jiraUpdate = jiraUpdate;
 	}
 }

@@ -15,5 +15,6 @@ public class TestConfigImpl extends TestConfig {
 		testConfig.setUsername("username");
 		testConfig.setPassword("password");
 		testConfig.setTestSuite("testSuite");
+		testConfig.setJiraUpdate(true);
 	}
 }

@@ -95,6 +95,14 @@ public class CommonFunctions {
 		return TESTPARAMETERS;
 	}
 
+	public static String getJiraUpdateSetting() {
+		if (TestConfigImpl.testConfig.getJiraUpdate() == true) {
+			return "Yes";
+		} else {
+			return "No";
+		}
+	}
+
 	static JavascriptExecutor js;
 
 	public static void setItemInLocalStorage(String item, String value,
