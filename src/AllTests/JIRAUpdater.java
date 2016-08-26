@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 
 /**
- * @author sambass
+ * @author atomicfruitcake
  *
  */
 public class JIRAUpdater {
