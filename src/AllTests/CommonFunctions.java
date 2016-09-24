@@ -53,9 +53,44 @@ public class CommonFunctions {
 
 	private static final Logger LOGGER = Logger.getLogger(CommonFunctions.class
 			.getName());
-
+	
+	public static String getConsoleOutput(int entryNo) {
+		try {
+			return guiOutputMethod(entryNo);
+		} catch (IOException e) {
+			throw new RuntimeException("Error fetching data from GUI output", e);
+		}
+	}
 	static File directory = null;
 	static String ENV = TestConfigImpl.testConfig.getEnvironment();
+	
+	public static String getEnvironment() {
+		return getConsoleOutput(0);
+	}
+
+	public static String getTestSuite() {
+		return getConsoleOutput(1);
+	}
+
+	public static String getBrowser() {
+		return getConsoleOutput(2);
+	}
+
+	public static String getUpdateJIRA() {
+		return getConsoleOutput(3);
+	}
+
+	public static String getUsername() {
+		return getConsoleOutput(4);
+	}
+
+	public static String getPassword() {
+		return getConsoleOutput(5);
+	}
+
+	public static String getJourney() {
+		return getConsoleOutput(6);
+	}
 	
 	public static void startBrowser(WebDriver driver, String url) {
 		LOGGER.info("Starting browser with URL: " + url);
