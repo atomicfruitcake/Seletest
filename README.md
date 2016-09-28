@@ -21,7 +21,7 @@ Now just import the project in to your IDE
 ## Custom settings and Properties
 The settings.txt file is used to pass custom settings to the test. This is where you should enter test usernames, test passwords and environment names etc.... 
 The Properties file should contain all the data required to run the tests. Test usernames, passwords and environments should be updated here from the settings file. 
-Also populate all the required URLs for starting browser and assert pages. If using JIRA or Slack, you will want to add details for instances here as well
+Also populate all the required URLs for starting browser and assert pages. If using JIRA or Slack, you will want to add the URL or API details for the relevent instances here as well
 
 ## Scripting
 You are now ready to script tests. An example test has been included.
