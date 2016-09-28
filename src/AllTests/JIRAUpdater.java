@@ -134,7 +134,9 @@ public class JIRAUpdater {
 			InterruptedException {
 		String testName = method.getName();
 		@SuppressWarnings(value = {})
-		String jiraTicketFull = "FN-" + testName.substring(2);
+		
+		// If Jira ID contains '-', you may need to perform string manipulation here to add it
+		String jiraTicketFull = testName;
 		String updateJiraResult = CommonFunctions.getUpdateJIRA();
 		switch (updateJiraResult) {
 		case "Yes":

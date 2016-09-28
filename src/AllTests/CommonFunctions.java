@@ -1,10 +1,13 @@
 package AllTests;
 
+import static AllTests.Properties.*;
+
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -17,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
@@ -53,45 +57,61 @@ public class CommonFunctions {
 
 	private static final Logger LOGGER = Logger.getLogger(CommonFunctions.class
 			.getName());
-	
-	public static String getConsoleOutput(int entryNo) {
+
+	// Reads Data from the settings.txt file
+	public static String readSettings(int lineNumber) throws IOException {
 		try {
-			return guiOutputMethod(entryNo);
-		} catch (IOException e) {
-			throw new RuntimeException("Error fetching data from GUI output", e);
+			return Files.readAllLines(Paths.get("settings.txt"))
+					.get(lineNumber);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
-	static File directory = null;
-	static String ENV = TestConfigImpl.testConfig.getEnvironment();
 	
+	//
+	public static String getSettings(int entryNo) {
+		try {
+			return readSettings(entryNo);
+		} catch (IOException e) {
+			throw new RuntimeException("Error fetching data from settings", e);
+		}
+	}
+	
+	// Create text file if it does not exist and append text
+	public static void writeToTextFile(String text, String filename) {
+		try {
+			File file = new File(filename);
+			if (!file.exists()) {
+				file.createNewFile();
+				file.setReadable(true);
+				file.setWritable(true);
+			}
+			FileWriter fw = new FileWriter(filename, true);
+			fw.write(text + "\n");
+			fw.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// Get environment name from settings file
 	public static String getEnvironment() {
-		return getConsoleOutput(0);
-	}
-
-	public static String getTestSuite() {
-		return getConsoleOutput(1);
-	}
-
-	public static String getBrowser() {
-		return getConsoleOutput(2);
-	}
-
-	public static String getUpdateJIRA() {
-		return getConsoleOutput(3);
-	}
-
-	public static String getUsername() {
-		return getConsoleOutput(4);
-	}
-
-	public static String getPassword() {
-		return getConsoleOutput(5);
-	}
-
-	public static String getJourney() {
-		return getConsoleOutput(6);
+		return getSettings(0);
 	}
 	
+	// Gets the username from the settings file
+	public static String getUsername() {
+		return getSettings(1);
+	}
+	
+	// Gets the password from the settings file
+	public static String getPassword() {
+		return getSettings(2);
+	}
+	
+	// Start the browser at a given URL
 	public static void startBrowser(WebDriver driver, String url) {
 		LOGGER.info("Starting browser with URL: " + url);
 		driver.get(url);
@@ -107,20 +127,28 @@ public class CommonFunctions {
 		}
 	}
 
+	// Gets the URL for a given server
 	public static String environmentSelector() {
 		Map<String, String> environmentSelect = new HashMap<String, String>();
 		environmentSelect.put("ENV_NAME", "ENV_URL");
 		// Fill with all required environments
-		return environmentSelect.get(ENV);;
+		try {
+			return environmentSelect.get(getEnvironment());
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	public static String getIpAddressAppServer() {
+	// Gets IP address for server based on ENV
+	public static String getIpAddressServer() throws IOException {
 		Map<String, String> ipSelect = new HashMap<String, String>();
 		ipSelect.put("ENV_NAME, ", "ENV_IP");
-		// FIll with all required app servers
-		return ipSelect.get(ENV);
+		// FIll with all required app servers for server tests
+		return ipSelect.get(getEnvironment());
 	}
 
+	// Sets the parameters for the TestNG XML
 	public static Map<String, String> setTestNGParameters() {
 		Map<String, String> TESTPARAMETERS = new HashMap<String, String>();
 		TESTPARAMETERS.put("name", "FN Test Suite");
@@ -130,16 +158,9 @@ public class CommonFunctions {
 		return TESTPARAMETERS;
 	}
 
-	public static String getJiraUpdateSetting() {
-		if (TestConfigImpl.testConfig.getJiraUpdate() == true) {
-			return "Yes";
-		} else {
-			return "No";
-		}
-	}
-
 	static JavascriptExecutor js;
 
+	// Sets an item in local storage using JavaScript. E.G.
 	public static void setItemInLocalStorage(String item, String value,
 			WebDriver driver) {
 		js = (JavascriptExecutor) driver;
@@ -147,16 +168,19 @@ public class CommonFunctions {
 				"window.sessionStorage.setItem('%s','%s');", item, value));
 	}
 
-	public static void javascriptClickFix(WebDriver driver, WebElement element) {
+	// Clicks and element using the javascript on a webpage
+	public static void javascriptClick(WebDriver driver, WebElement element) {
 		js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", element);
 	}
 
+	// Scrolls to the bottom of a webpage
 	public static void scrollToBottomOfPage(WebDriver driver) {
 		js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 	}
 
+	// Wait for an element to load
 	public static void waitForElement(WebDriver driver, String cssSelector) {
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		WebElement element = new WebDriverWait(driver, 60)
@@ -165,21 +189,23 @@ public class CommonFunctions {
 		Assert.assertTrue(element.isDisplayed());
 	}
 
+	// Clicks an element on a webpage if it is present
 	public static void clickElement(WebDriver driver, String cssSelector) {
 		waitForElement(driver, cssSelector);
-		// Temporary fix, greatly reduces brittleness
 		CommonFunctions.threadSleep(1);
 		waitForElement(driver, cssSelector);
 		WebElement element = driver.findElement(By.cssSelector(cssSelector));
 		element.click();
 	}
 
+	// Clicks an element on a webpage with javascript if it is present
 	public static void clickElementWithJs(WebDriver driver, String cssSelector) {
 		waitForElement(driver, cssSelector);
 		WebElement element = driver.findElement(By.cssSelector(cssSelector));
-		javascriptClickFix(driver, element);
+		javascriptClick(driver, element);
 	}
 
+	// Clicks an element using Xpath
 	public static void clickElementByXpath(WebDriver driver,
 			String cssSelector, String xpath) {
 		waitForElement(driver, cssSelector);
@@ -187,6 +213,7 @@ public class CommonFunctions {
 		element.click();
 	}
 
+	// Clicks an element using ID
 	public static void clickElementById(WebDriver driver, String cssSelector,
 			String id) {
 		waitForElement(driver, cssSelector);
@@ -194,6 +221,7 @@ public class CommonFunctions {
 		element.click();
 	}
 
+	// Clicks an element using Name
 	public static void clickElementByName(WebDriver driver, String cssSelector,
 			String name) {
 		waitForElement(driver, cssSelector);
@@ -201,26 +229,31 @@ public class CommonFunctions {
 		element.click();
 	}
 
+	// Clicks an element using ClassName
 	public static void clickElementByClassName(WebDriver driver,
-			String className, String name) {
-		waitForElement(driver, className);
+			String cssSelector, String className) {
+		waitForElement(driver, cssSelector);
 		WebElement element = driver.findElement(By.className(className));
 		element.click();
 	}
 
+	// Send Keys to an element if it is present
 	public static void sendKeysToElement(WebDriver driver, String cssSelector,
 			String keys) {
 		waitForElement(driver, cssSelector);
+		clearTextFromElement(driver, cssSelector);
 		WebElement element = driver.findElement(By.cssSelector(cssSelector));
 		element.sendKeys(keys);
 	}
 
+	// Clears the text from a web element
 	public static void clearTextFromElement(WebDriver driver, String cssSelector) {
 		waitForElement(driver, cssSelector);
 		WebElement element = driver.findElement(By.cssSelector(cssSelector));
 		element.clear();
 	}
 
+	// Clicks a link by Href
 	public static void clickLinkByHref(WebDriver driver, String href) {
 		List<WebElement> anchors = driver.findElements(By.tagName("a"));
 		Iterator<WebElement> i = anchors.iterator();
@@ -234,6 +267,7 @@ public class CommonFunctions {
 		}
 	}
 
+	// Forces mouse to hover over an element
 	public static void mouseHover(WebDriver driver, String cssSelector)
 			throws AWTException {
 		threadSleep(3);
@@ -243,14 +277,12 @@ public class CommonFunctions {
 		robot.mouseMove(point.getX(), point.getY());
 	}
 
+	// Gets the current URL from the browser
 	public static String getCurrentUrl(WebDriver driver) {
 		return driver.getCurrentUrl();
 	}
 
-	public static void sleep(int x, WebDriver driver) {
-		driver.manage().timeouts().implicitlyWait(x, TimeUnit.SECONDS);
-	}
-
+	// Puts the test to sleep for 'x' seconds
 	public static void threadSleep(int x) {
 		int time = x * 1000;
 		try {
@@ -260,6 +292,7 @@ public class CommonFunctions {
 		}
 	}
 
+	// Select a =n option from a drop down menu
 	public static void selectFromDropDown(WebDriver driver, String cssSelector,
 			int index) {
 		CommonFunctions.waitForElement(driver, cssSelector);
@@ -269,6 +302,7 @@ public class CommonFunctions {
 		clickProvider.selectByIndex(index);
 	}
 
+	// Takes a screenshot of the browser
 	public static void screenshot(String name, WebDriver driver) {
 
 		Date dDate = new Date();
@@ -290,30 +324,27 @@ public class CommonFunctions {
 		}
 	}
 
+	// Assert that the browser is on a given page
 	public static void pageAssert(WebDriver driver, String page) {
 		LOGGER.info("Asserting current URL is equal to: " + page);
 		String CurrentURL = driver.getCurrentUrl();
 		Assert.assertEquals(CurrentURL, page);
 	}
 
+	// Assert that the browser is not on a given page
 	public static void pageAssertFalse(WebDriver driver, String page) {
 		LOGGER.info("Asserting current URL is not equal to: " + page);
 		String CurrentURL = driver.getCurrentUrl();
 		Assert.assertFalse(CurrentURL.equals(page));
 	}
 
-	public static boolean pageAssertBool(WebDriver driver, String page) {
+	// Passes or fails a test based on given page
+	// Can be used to run tests within tests
+	public static void pageAssertTest(WebDriver driver, String page,
+			String jiraID) throws IOException, InterruptedException,
+			TimeoutException {
 		LOGGER.info("Asserting current URL is equal to: " + page);
 		if (driver.getCurrentUrl() == page) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public static void pageAssertTest(WebDriver driver, String page, String jiraID) throws IOException, InterruptedException {
-		LOGGER.info("Asserting current URL is equal to: " + page);
-		if(driver.getCurrentUrl()==page){
 			LOGGER.info("Passing Ticket: " + jiraID);
 			JIRAUpdater.PassTicket(jiraID);
 		} else {
@@ -321,44 +352,57 @@ public class CommonFunctions {
 			JIRAUpdater.FailTicket(jiraID);
 		}
 	}
-	
-	public static boolean verifyExists(WebDriver driver, String cssSelector) {
+
+	// Assert that text is present on a page
+	public static void textAssert(WebDriver driver, String text) {
+		boolean testPass;
+		if (driver.getPageSource().contains(text)) {
+			testPass = true;
+		} else {
+			testPass = false;
+			LOGGER.info("Did not find text: " + text + " in page source");
+		}
+		Assert.assertTrue(testPass);
+	}
+
+	// Verify that that a web element exists
+	public static void verifyExists(WebDriver driver, String cssSelector) {
 		waitForElement(driver, cssSelector);
-		if (driver.findElement(By.cssSelector(cssSelector)) != null) {
-			return true;
-		} else {
-			return false;
-		}
+		Assert.assertNotEquals(driver.findElement(By.cssSelector(cssSelector)),
+				null);
 	}
 
-	public static void pageAssertTestUpdater(WebDriver driver, String page,
-			String jiraID) throws IOException, InterruptedException {
-		if (CommonFunctions.pageAssertBool(driver, page) == true) {
-			JIRAUpdater.PassTicket(jiraID);
-		}
+	// Verify the text on a given web element
+	public static void verifyText(WebDriver driver, String cssSelector,
+			String text) {
+		waitForElement(driver, cssSelector);
+		Assert.assertEquals(driver.findElement(By.cssSelector(cssSelector))
+				.getText(), null);
 	}
 
-	public static boolean verifyDoesNotExist(WebDriver driver, String cssSelector) {
-		if (driver.findElement(By.cssSelector(cssSelector)) == null) {
-			return true;
-		} else {
-			return false;
-		}
+	// Verify that a web element does not exist
+	public static void verifyDoesNotExist(WebDriver driver, String cssSelector) {
+		Assert.assertEquals(driver.findElement(By.cssSelector(cssSelector)),
+				null);
+
 	}
 
+	// Verify that an element is clickable
 	public static void verifyClickable(WebDriver driver, String cssSelector) {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By
 				.cssSelector(cssSelector)));
 	}
 
+	// Get text from a text field
 	public static String getTextFromField(WebDriver driver, String cssSelector) {
 		WebElement inputBox = driver.findElement(By.cssSelector(cssSelector));
 		String textInsideInputBox = inputBox.getAttribute("value");
 		return textInsideInputBox;
 	}
 
-	// Build TestNG XML file
+	// Build TestNG XML file. Replace hardcoded values to programmatically build
+	// different testing configurations
 	public static void buildTestngXml() throws IOException {
 		LOGGER.info("Building TestNG XML file");
 		Document document = DocumentHelper.createDocument();
@@ -376,10 +420,10 @@ public class CommonFunctions {
 				"org.uncommons.reportng.JUnitXMLReporter");
 		Element test = suite.addElement("test").addAttribute("name", "tests");
 		Element packages = test.addElement("packages");
-		for (int i = 0; i < R1_REGRESSION_PACKAGES.length; i++)  {
+		for (int i = 0; i < TEST_PACKAGES.length; i++) {
 			packages.addElement("package").addAttribute("name",
-				R1_REGRESSION_PACKAGES[i]);
-			}
+					TEST_PACKAGES[i]);
+		}
 		FileOutputStream fos = new FileOutputStream("testng.xml");
 		OutputFormat format = OutputFormat.createPrettyPrint();
 		XMLWriter writer = new XMLWriter(fos, format);
@@ -387,6 +431,7 @@ public class CommonFunctions {
 		writer.flush();
 	}
 
+	// Runs the TestNG.xml
 	public static void runTestngXml() throws InterruptedException {
 		LOGGER.info("Running TestNG XML file");
 		TestNG testng = new TestNG();
@@ -396,31 +441,19 @@ public class CommonFunctions {
 		testng.run();
 	}
 
-	public static void runTestSuite(TestNG testNG) {
-		testNG.run();
-	}
-
-	public static String guiOutputMethod(int lineNumber) throws IOException {
-		try {
-			return Files.readAllLines(Paths.get("consoleout.txt")).get(
-					lineNumber);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
+	// Returns a random string 'i' characters long
 	public static String getRandomString(int i) {
 		return RandomStringUtils.randomAlphanumeric(i);
 	}
 
+	// Generates a random mailinator username
 	public static String getRandomUsername() {
 		return getRandomString(20).toLowerCase() + "@mailinator.com";
 	}
-	
+
+	// Runs a terminal command from string input
 	public static void runTerminalCommand(String curlCommand)
 			throws InterruptedException {
-		// Runs a terminal command from string input
 		StringBuffer output = new StringBuffer();
 		try {
 			Process process = Runtime.getRuntime().exec(curlCommand);
@@ -436,13 +469,14 @@ public class CommonFunctions {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void tunnelIntoAppServer(String shellCommand, int port)
+
+	// Tunnels into and app server to run shell Commands
+	public static void tunnelIntoServer(String shellCommand, int port)
 			throws JSchException, IOException {
 		LOGGER.info("Tunneling into app server to run command: " + shellCommand);
 		JSch jsch = new JSch();
-		Session session = jsch.getSession(APPSERVERUSERNAME, APPSERVERIP, port);
-		session.setPassword(APPSERVERPASSWORD);
+		Session session = jsch.getSession(SERVERUSERNAME, SERVERIP, port);
+		session.setPassword(SERVERPASSWORD);
 		Properties config = new Properties();
 		config.put("StrictHostKeyChecking", "no");
 		session.setConfig(config);
@@ -461,10 +495,12 @@ public class CommonFunctions {
 		session.disconnect();
 	}
 
+	// Gets the current operating system
 	public static String getOS() {
 		return System.getProperty("os.name");
 	}
 
+	// Returns that name of the current operating system
 	public static String operatingSystem() {
 		if (getOS().startsWith("Windows")) {
 			return "Windows";
@@ -476,9 +512,10 @@ public class CommonFunctions {
 	}
 
 	// Updates Slack channel as Testbot
-	private static String slackWebhookAPI = SLACKWEBHOOK_API;
+	private static String slackWebhookAPI = SLACK_WEBHOOK_API;
 	private static String curlPOSTFlags = "curl -X POST --data-urlencode ";
 
+	// Send content to a slack channel
 	public static void updateSlackTestBot(String content)
 			throws InterruptedException {
 
@@ -491,22 +528,4 @@ public class CommonFunctions {
 		System.out.println(testBotCurl);
 		CommonFunctions.runTerminalCommand(testBotCurl);
 	}
-
-	public static void createDino() {
-		System.out.println("       __");
-		System.out.println("      /oo\\");
-		System.out.println("     |    |");
-		;
-		System.out.println(" ^^  (vvvv)  ^^");
-		System.out.println(" \\\\  /\\__/\\  //");
-		System.out.println("  \\\\/      \\//");
-		System.out.println("   /        \\    ");
-		System.out.println("  |          |    ^");
-		System.out.println("  /          \\___/ | ");
-		System.out.println(" (            )     |");
-		System.out.println("  \\----------/    _/");
-		System.out.println("   //    \\\\_____/");
-		System.out.println("   W      W");
-	}
-
 }
