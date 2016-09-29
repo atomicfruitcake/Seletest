@@ -1,4 +1,4 @@
-package AllTests;
+package common;
 /*
  * Creates the test config class for handling settings
  */

@@ -8,7 +8,7 @@
   </listeners>
   <test name="tests">
     <packages>
-      <package name="Tests"/>
+      <package name="tests"/>
     </packages>
   </test>
 </suite>

@@ -1,8 +1,8 @@
-package AllTests;
+package common;
 
-import static AllTests.Properties.JIRA;
-import static AllTests.Properties.JIRABOTPASSWORD;
-import static AllTests.Properties.JIRABOTUSERNAME;
+import static common.Properties.JIRA;
+import static common.Properties.JIRABOTPASSWORD;
+import static common.Properties.JIRABOTUSERNAME;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

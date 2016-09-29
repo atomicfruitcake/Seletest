@@ -1,4 +1,4 @@
-package AllTests;
+package common;
 
 import static AllTests.Properties.CHROME;
 import static AllTests.Properties.CHROMEOSX;

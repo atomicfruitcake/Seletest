@@ -1,6 +1,6 @@
-package AllTests;
+package common;
 
-import AllTests.TestConfig;
+import common.TestConfig;
 /**
  * @author atomicfruitcake
  *

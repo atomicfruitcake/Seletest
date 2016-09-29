@@ -1,6 +1,6 @@
-package AllTests;
+package common;
 
-import static AllTests.Properties.*;
+import static common.Properties.*;
 
 import java.awt.AWTException;
 import java.awt.Robot;

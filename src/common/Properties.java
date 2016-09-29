@@ -1,4 +1,4 @@
-package AllTests;
+package common;
 
 /**
  * @author atomicfruitcake

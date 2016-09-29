@@ -1,9 +1,9 @@
-package Tests;
+package tests;
 
 import org.testng.annotations.Test;
 
-import AllTests.BasePage;
-import AllTests.CommonFunctions;
+import common.BasePage;
+import common.CommonFunctions;
 
 @Test
 public class ExampleTest extends BasePage {
