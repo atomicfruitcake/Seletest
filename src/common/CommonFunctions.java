@@ -111,6 +111,11 @@ public class CommonFunctions {
 		return getSettings(2);
 	}
 	
+	//Gets the browser from the settings file
+	public static String getBrowser() {
+		return getSettings(3);
+	}
+	
 	// Start the browser at a given URL
 	public static void startBrowser(WebDriver driver, String url) {
 		LOGGER.info("Starting browser with URL: " + url);
@@ -131,13 +136,7 @@ public class CommonFunctions {
 	public static String environmentSelector() {
 		Map<String, String> environmentSelect = new HashMap<String, String>();
 		environmentSelect.put("ENV_NAME", "ENV_URL");
-		// Fill with all required environments
-		try {
-			return environmentSelect.get(getEnvironment());
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return environmentSelect.get(getEnvironment());
 	}
 
 	// Gets IP address for server based on ENV

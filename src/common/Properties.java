@@ -29,7 +29,10 @@ public class Properties {
 	public static final String CHROME = "";
 	public static final String CHROMEOSX = "WebDrivers\\chromedriver";
 	public static final String FIREFOX = "";
-
+	
+	// Docker Selenium Hub Access
+	public static final String DOCKER_SELENIUM = "http://192.168.99.100:4444/wd/hub";
+	
 	// Jira Bot login details
 	public static final String JIRABOTUSERNAME = "";
 	public static final String JIRABOTPASSWORD = "";
