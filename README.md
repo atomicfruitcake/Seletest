@@ -2,10 +2,11 @@
 Selenium Testing framework
 
 # What is this?
-Seletest combines Selenium with TestNG so you can create Automated browser tests with easy. 
-Seletest can also update JIRA tickets based on Test results. 
+Seletest combines Selenium, TestNG, Docker and BrowerMobProxy so you can create Automated browser tests with easy. 
+Seletest can also update JIRA tickets based on Test results and update slack, completely automated.
 The Seletest framework is designed to allow testers to begin scripting automated tests quickly without having to
 set up test reporting alongside selenium. 
+Seletest supports dockerised testing (if docker is installed) and network traffic capture. Example tests can be found in src.tests
 
 # How do I use it?
 ## Initial Setup
@@ -27,6 +28,7 @@ Also populate all the required URLs for starting browser and assert pages. If us
 You are now ready to script tests. An example test has been included.
 
 #Tips
-* Testers should aim to user the CommonFunctions functions over the standard Selenium functions. 
-* These functions are more stable and consistent that OOTB selenium. It also allows for easier maintainability of large test suites. 
-* Currently only chrome is supported. To add other browsers, add the drivers to the WebDrivers folder and update the properties file
+* Use the CommonFunctions functions over the standard Selenium functions. If a functions does not exist CommonFunctions, add it and then submit it to this project!
+* Remove all hardcoded data from tests and keep it in properties. 
+* Currently only chrome is supported. To add other browsers, add the drivers to the WebDrivers folder and update the properties file.
+* Build your test methods in CommonMethods and build tests in pieces. This allows for maintable tests and fast scripting of complex E2E tests

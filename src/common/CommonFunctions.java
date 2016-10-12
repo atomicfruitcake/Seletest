@@ -6,6 +6,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,9 +20,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
+
+import net.lightbody.bmp.core.har.Har;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -43,6 +47,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.TestNG;
 import org.testng.collections.Lists;
+
+import AllTests.CommonFunctions;
 
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
@@ -191,6 +197,19 @@ public class CommonFunctions {
 		.until(ExpectedConditions.elementToBeClickable(By
 			.cssSelector(cssSelector)));
 	Assert.assertTrue(element.isDisplayed());
+    }
+
+    public static void waitForUrl(WebDriver driver, String url) {
+	driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	driver.getCurrentUrl();
+	for (int i = 0; i < 60; i++) {
+	    if (getCurrentUrl(driver) == url) {
+		i = 60;
+		break;
+	    } else {
+		threadSleep(1);
+	    }
+	}
     }
 
     // Clicks an element on a webpage if it is present
@@ -342,21 +361,6 @@ public class CommonFunctions {
 	Assert.assertFalse(CurrentURL.equals(page));
     }
 
-    // Passes or fails a test based on given page
-    // Can be used to run tests within tests
-    public static void pageAssertTest(WebDriver driver, String page,
-	    String jiraID) throws IOException, InterruptedException,
-	    TimeoutException {
-	LOGGER.info("Asserting current URL is equal to: " + page);
-	if (driver.getCurrentUrl() == page) {
-	    LOGGER.info("Passing Ticket: " + jiraID);
-	    JIRAUpdater.PassTicket(jiraID);
-	} else {
-	    LOGGER.info("Failing Ticket: " + jiraID);
-	    JIRAUpdater.FailTicket(jiraID);
-	}
-    }
-
     // Assert that text is present on a page
     public static void textAssert(WebDriver driver, String text) {
 	boolean testPass;
@@ -372,13 +376,12 @@ public class CommonFunctions {
     public static void assertElementNotClickable(WebDriver driver,
 	    String cssSelector) {
 	boolean testPass;
-	if (driver.findElement(By.cssSelector(cssSelector))
-		.isEnabled()) {
-	   testPass = false;
+	if (driver.findElement(By.cssSelector(cssSelector)).isEnabled()) {
+	    testPass = false;
 	} else {
-	   testPass = true;
+	    testPass = true;
 	}
-	Assert.assertEquals(testPass, true);
+	Assert.assertTrue(testPass);
     }
 
     // Verify that that a web element exists
@@ -400,7 +403,6 @@ public class CommonFunctions {
     public static void verifyDoesNotExist(WebDriver driver, String cssSelector) {
 	Assert.assertEquals(driver.findElement(By.cssSelector(cssSelector)),
 		null);
-
     }
 
     // Verify that an element is clickable
@@ -543,5 +545,39 @@ public class CommonFunctions {
 	String testBotCurl = curlPOSTFlags + payload + slackWebhookAPI;
 	System.out.println(testBotCurl);
 	CommonFunctions.runTerminalCommand(testBotCurl);
+    }
+
+    public static void scanTextFileForMatch(File file, String matchText) {
+	LOGGER.info("Scanning " + file.getName() + " to check if is contains: "
+		+ matchText);
+	boolean isMatch = false;
+	try {
+	    Scanner scanner = new Scanner(file);
+	    int lineNum = 0;
+	    while (scanner.hasNextLine()) {
+		String line = scanner.nextLine();
+		lineNum++;
+		if (line.contains(matchText)) {
+		    isMatch = true;
+		} else {
+		    isMatch = false;
+		}
+	    }
+	    scanner.close();
+	} catch (FileNotFoundException e) {
+	    e.printStackTrace();
+	    isMatch = false;
+	}
+	Assert.assertEquals(isMatch, true);
+
+    }
+
+    public static void scanHarFileForMatch(Har har, String matchText) {
+	File harFile = new File("test.har");
+	File harAsText = new File("harAsText.txt");
+	har.writeTo(harFile);
+	harFile.renameTo(harAsText);
+	CommonFunctions.scanTextFileForMatch(harAsText, matchText);
+	harAsText.delete();
     }
 }

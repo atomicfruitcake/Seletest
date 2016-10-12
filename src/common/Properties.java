@@ -19,7 +19,9 @@ public class Properties {
 
 	// URL list
 	public static final String URL = CommonFunctions.environmentSelector();
-
+	public static final String GOOGLE = "https://www.google.co.uk/";
+	public static final String EXAMPLE = "http://www.example.com";
+	
 	// Jira Instance URL for automated updating of test tickets
 	public static final String JIRA = "";
 
