@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import common.CommonFunctions;
 import common.ProxyBasePage;
+import static common.Properties.GOOGLE;
 
 /**
  * @author atomicfruitcake
@@ -21,7 +22,7 @@ public class ExampleProxyTest extends ProxyBasePage{
 	
 	server.newHar("test.har");
 	
-	CommonFunctions.startBrowser(driver, "http://www.google.com");
+	CommonFunctions.startBrowser(driver, GOOGLE);
 	
 	Har har = server.getHar();
 	

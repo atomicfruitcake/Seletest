@@ -47,9 +47,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.TestNG;
 import org.testng.collections.Lists;
-
-import AllTests.CommonFunctions;
-
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -575,9 +572,17 @@ public class CommonFunctions {
     public static void scanHarFileForMatch(Har har, String matchText) {
 	File harFile = new File("test.har");
 	File harAsText = new File("harAsText.txt");
-	har.writeTo(harFile);
-	harFile.renameTo(harAsText);
-	CommonFunctions.scanTextFileForMatch(harAsText, matchText);
-	harAsText.delete();
+	try {
+	    har.writeTo(harFile);
+	    harFile.renameTo(harAsText);
+	    CommonFunctions.scanTextFileForMatch(harAsText, matchText);
+	    harAsText.delete();}
+	catch (IOException e) {
+	    harFile.delete();
+	    harAsText.delete();
+	    e.printStackTrace();
+	}
     }
+    
+    
 }
