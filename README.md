@@ -2,11 +2,11 @@
 Selenium Testing framework
 
 # What is this?
-Seletest combines Selenium, TestNG, Docker and BrowerMobProxy so you can create Automated browser tests with easy. 
+Seletest combines Selenium, TestNG, Docker and BrowerMobProxy so you can create automated browser tests with ease. 
 Seletest can also update JIRA tickets based on Test results and update slack, completely automated.
 The Seletest framework is designed to allow testers to begin scripting automated tests quickly without having to
 set up test reporting alongside selenium. 
-Seletest supports dockerised testing (if docker is installed) and network traffic capture. Example tests can be found in src.tests
+Seletest supports dockerised testing (if docker is installed) and network traffic capture with BrowserMobProxy. Example tests can be found in src.tests
 
 # How do I use it?
 ## Initial Setup
