@@ -33,5 +33,6 @@ You are now ready to script tests. Example tests has been included in the src/te
 * Remove all hardcoded data from tests and keep it in properties. 
 * Currently only Chrome is supported. To add other browsers, add the drivers to the WebDrivers folder and update the properties file.
 * Build your test methods in CommonMethods and build tests in pieces. This allows for maintable tests and fast scripting of complex E2E tests
-* If using Docker or Selendroid to run tests, make sure you have any required docker images running and/or that you have a real or emulated android device running.
+* If using Docker or Selendroid to run tests, make sure you have any required docker installed and/or that you have a real or emulated android device running.
+* The DockerRun.sh script can be used to start up a dockerised selenium grid running chrome and firefox images
 * Be aware that BrowserMobProxy tests will not work if there is a downstream VPN.
