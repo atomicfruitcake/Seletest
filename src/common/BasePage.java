@@ -30,9 +30,9 @@ public class BasePage {
 	@BeforeMethod(alwaysRun = true)
 	public void startUp() throws IOException {
 		LOGGER.info("Starting browser: "
-				+ TestConfigImpl.testConfig.getBrowser());
+				+ CommonFunctions.getBrowser());
 
-		switch (TestConfigImpl.testConfig.getBrowser()) {
+		switch (CommonFunctions.getBrowser() ) {
 		case "Chrome": {
 			switch (CommonFunctions.operatingSystem()) {
 			case "Windows": {

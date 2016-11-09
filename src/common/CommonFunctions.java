@@ -11,6 +11,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -22,7 +24,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
 
 import net.lightbody.bmp.core.har.Har;
@@ -47,6 +48,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.TestNG;
 import org.testng.collections.Lists;
+
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -72,30 +74,13 @@ public class CommonFunctions {
 	}
     }
 
-    //
+    // Get settings from the settings.txt file
     public static String getSettings(int entryNo) {
 	try {
 	    return readSettings(entryNo);
 	} catch (IOException e) {
-	    throw new RuntimeException("Error fetching data from settings", e);
-	}
-    }
-
-    // Create text file if it does not exist and append text
-    public static void writeToTextFile(String text, String filename) {
-	try {
-	    File file = new File(filename);
-	    if (!file.exists()) {
-		file.createNewFile();
-		file.setReadable(true);
-		file.setWritable(true);
-	    }
-	    FileWriter fw = new FileWriter(filename, true);
-	    fw.write(text + "\n");
-	    fw.close();
-
-	} catch (IOException e) {
-	    e.printStackTrace();
+	    throw new RuntimeException("Error fetching data from settings.txt",
+		    e);
 	}
     }
 
@@ -132,14 +117,6 @@ public class CommonFunctions {
 
     }
 
-    public static String defaultReturner(String value, String defaultValue) {
-	if ((value == null) || (value.isEmpty() == true)) {
-	    return defaultValue;
-	} else {
-	    return value;
-	}
-    }
-
     // Gets the URL for a given server
     public static String environmentSelector() {
 	Map<String, String> environmentSelect = new HashMap<String, String>();
@@ -151,7 +128,7 @@ public class CommonFunctions {
     public static String getIpAddressServer() throws IOException {
 	Map<String, String> ipSelect = new HashMap<String, String>();
 	ipSelect.put("ENV_NAME, ", "ENV_IP");
-	// FIll with all required app servers for server tests
+	// FIll with all required app servers for server side tests
 	return ipSelect.get(getEnvironment());
     }
 
@@ -312,7 +289,7 @@ public class CommonFunctions {
 	}
     }
 
-    // Select a =n option from a drop down menu
+    // Select an option from a drop down menu
     public static void selectFromDropDown(WebDriver driver, String cssSelector,
 	    int index) {
 	CommonFunctions.waitForElement(driver, cssSelector);
@@ -327,14 +304,12 @@ public class CommonFunctions {
 
 	Date dDate = new Date();
 	SimpleDateFormat fullFormat = new SimpleDateFormat("yyyy.MM.dd_HHmmss");
-	String screenshot_handle = name;
 	File screenshot = ((TakesScreenshot) driver)
 		.getScreenshotAs(OutputType.FILE);
 
 	try {
-	    FileUtils.copyFile(screenshot, new File("screenshots\\"
-		    + screenshot_handle + "_" + fullFormat.format(dDate)
-		    + ".png"));
+	    FileUtils.copyFile(screenshot, new File("screenshots\\" + name
+		    + "_" + fullFormat.format(dDate) + ".png"));
 	}
 
 	catch (Exception ex) {
@@ -485,14 +460,14 @@ public class CommonFunctions {
 	}
     }
 
-    // Tunnels into and app server to run shell Commands
+    // Tunnels into server to run shell Commands
     public static void tunnelIntoServer(String shellCommand, int port)
 	    throws JSchException, IOException {
 	LOGGER.info("Tunneling into app server to run command: " + shellCommand);
+	Properties config = new Properties();
 	JSch jsch = new JSch();
 	Session session = jsch.getSession(SERVERUSERNAME, SERVERIP, port);
 	session.setPassword(SERVERPASSWORD);
-	Properties config = new Properties();
 	config.put("StrictHostKeyChecking", "no");
 	session.setConfig(config);
 	session.connect();
@@ -505,25 +480,34 @@ public class CommonFunctions {
 	while ((msg = in.readLine()) != null) {
 	    System.out.println(msg);
 	}
-
+	LOGGER.info("Disconnecting from " + SERVERIP);
 	channel.disconnect();
 	session.disconnect();
     }
 
     // Gets the current operating system
     public static String getOS() {
-	return System.getProperty("os.name");
+	return System.getProperty("os.name").toLowerCase();
     }
 
     // Returns that name of the current operating system
     public static String operatingSystem() {
-	if (getOS().startsWith("Windows")) {
-	    return "Windows";
+	String operatingSystem = null;
+	try {
+	    if (getOS().startsWith("windows")) {
+		operatingSystem = "windows";
+	    }
+	    if (getOS().startsWith("mac")) {
+		operatingSystem = "osx";
+	    }
+	    if (getOS().startsWith("unix")) {
+		operatingSystem = "unix";
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    LOGGER.warning("Unable to determine native Operating System");
 	}
-	if (getOS().startsWith("Mac")) {
-	    return "OSX";
-	} else
-	    return "OSX";
+	return operatingSystem;
     }
 
     // Updates Slack channel as Testbot
@@ -544,6 +528,26 @@ public class CommonFunctions {
 	CommonFunctions.runTerminalCommand(testBotCurl);
     }
 
+    // Create text file if it does not exist and append text
+    public static void writeToTextFile(String text, String filename) {
+	try {
+	    File file = new File(filename);
+	    if (!file.exists()) {
+		file.createNewFile();
+		file.setReadable(true);
+		file.setWritable(true);
+	    }
+	    FileWriter fw = new FileWriter(filename, true);
+	    fw.write(text + "\n");
+	    fw.close();
+
+	} catch (IOException e) {
+	    LOGGER.info("Error creating text file: " + filename);
+	    e.printStackTrace();
+	}
+    }
+
+    // Scans a text file for a matching string
     public static void scanTextFileForMatch(File file, String matchText) {
 	LOGGER.info("Scanning " + file.getName() + " to check if is contains: "
 		+ matchText);
@@ -569,6 +573,7 @@ public class CommonFunctions {
 
     }
 
+    // Scans a har file for a matching string
     public static void scanHarFileForMatch(Har har, String matchText) {
 	File harFile = new File("test.har");
 	File harAsText = new File("harAsText.txt");
@@ -576,13 +581,34 @@ public class CommonFunctions {
 	    har.writeTo(harFile);
 	    harFile.renameTo(harAsText);
 	    CommonFunctions.scanTextFileForMatch(harAsText, matchText);
-	    harAsText.delete();}
-	catch (IOException e) {
+	    harAsText.delete();
+	} catch (IOException e) {
 	    harFile.delete();
 	    harAsText.delete();
 	    e.printStackTrace();
 	}
     }
-    
-    
+
+    // Gets the Http response code for a given url
+    public static int getHttpResponseCode(String url) {
+	int response = 0;
+	try {
+	    HttpURLConnection.setFollowRedirects(false);
+	    HttpURLConnection connection = (HttpURLConnection) new URL(url)
+		    .openConnection();
+	    connection.setRequestMethod("HEAD");
+	    response = connection.getResponseCode();
+	    connection.disconnect();
+	    return response;
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    return response;
+	}
+    }
+
+    // Verifies the Http Response code for a given url
+    public static void verifyHttpResponseCode(String url,
+	    int responseCodeExpected) {
+	Assert.assertEquals(getHttpResponseCode(url), responseCodeExpected);
+    }
 }
