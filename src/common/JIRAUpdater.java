@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 
-import AllTests.CommonFunctions;
-import AllTests.JIRAUpdater;
+import common.CommonFunctions;
+import common.JIRAUpdater;
 
 /**
  * @author atomicfruitcake

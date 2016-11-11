@@ -26,9 +26,19 @@ The Properties file should contain all the data required to run the tests. Test 
 Also populate all the required URLs for starting browser and assert pages. If using JIRA or Slack, you will want to add the URL or API details for the relevant instances here as well
 
 ## Scripting
-You are now ready to script tests. Example tests has been included in the src/tests folder
+You are now ready to script tests. Example tests has been included in the src/tests folder. Note, the preferred way to click a web element is to use 
 
-#Tips
+```java
+CommonFunctions.clickElement(driver, "cssSelector of element");
+```
+
+This can be used to select by name/id/value etc... in the following form for maximum flexibility  
+
+```java
+CommonFunctions.clickElement(driver, "[id='elementID']");
+```
+
+##Tips
 * Use the CommonFunctions functions over the standard Selenium functions. If a functions does not exist in CommonFunctions, add it and then submit it to this project!
 * Remove all hardcoded data from tests and keep it in properties. 
 * Currently only Chrome is supported. To add other browsers, add the drivers to the WebDrivers folder and update the properties file.

@@ -28,8 +28,8 @@ public class Properties {
 	// Browser driver paths
 	public static final String PHANTOMJS = "";
 	public static final String IE11 = "";
-	public static final String CHROME = "";
-	public static final String CHROMEOSX = "WebDrivers\\chromedriver";
+	public static final String CHROME = "WebDrivers\\chromedriver.exe";
+	public static final String CHROMEOSX = "WebDrivers/chromedriver";
 	public static final String FIREFOX = "";
 	
 	// Docker Selenium Hub Access
@@ -44,4 +44,7 @@ public class Properties {
 
 	// Test Packages
 	public static final String[] TEST_PACKAGES = new String[] {"Tests" };
+	
+	// Google Test Data
+	public static final String GOOGLE_SEARCH_TERM = "foo";
 }

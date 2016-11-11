@@ -1,41 +1,63 @@
 package common;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.logging.Logger;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import io.selendroid.SelendroidCapabilities;
-import io.selendroid.SelendroidConfiguration;
-import io.selendroid.SelendroidDriver;
-import io.selendroid.SelendroidLauncher;
+import org.testng.annotations.BeforeSuite;
+
+import io.selendroid.client.SelendroidDriver;
+import io.selendroid.common.SelendroidCapabilities;
+import io.selendroid.common.device.DeviceTargetPlatform;
+import io.selendroid.standalone.SelendroidConfiguration;
+import io.selendroid.standalone.SelendroidLauncher;
 
 /**
  * @author atomicfruitcake
  *
  */
 public class SelendroidBasePage {
-    
-    private static final Logger LOGGER = Logger.getLogger(SelendroidBasePage.class
-		.getName());
-    
-    private SelendroidLauncher selendroidServer = null;
-    private WebDriver driver = null;
-    
-    @BeforeMethod
-    public void startUp() throws Exception{
-	LOGGER.info("Starting selendroid driver");
+    private static final Logger LOGGER = Logger
+	    .getLogger(SelendroidBasePage.class.getName());
+
+    public static WebDriver driver;
+    public static SelendroidLauncher selendroidServer;
+
+    @BeforeSuite
+    public void beforeSuite() {
+	CommonFunctions.createTestBot();
+    }
+
+    @BeforeMethod(alwaysRun = true)
+    public void startup() throws Exception {
+	LOGGER.info("Starting browser: Android");
+
+	// Start Selendroid server
 	if (selendroidServer != null) {
 	    selendroidServer.stopSelendroid();
 	}
 	SelendroidConfiguration config = new SelendroidConfiguration();
 	selendroidServer = new SelendroidLauncher(config);
-	selendroidServer.launchSelendroid
-	DesiredCapabilities desiredCapabilities = SelendroidCapabilities.android();
-	driver = new SelendroidDriver(desiredCapabilities);
+	selendroidServer.launchSelendroid();
+
+	// Start the Selendroid driver
+	SelendroidCapabilities capabilities = SelendroidCapabilities.emulator(
+		DeviceTargetPlatform.ANDROID17,
+		"io.selendroid.androiddriver:0.17.0");
+	capabilities.setEmulator(true);
+	driver = new SelendroidDriver(capabilities);
     }
-    
-    @AfterMethod
-    public void tearDown(){
-	if(driver != null){
+
+    @AfterMethod(alwaysRun = true)
+    public void tearDown(ITestResult result, Method method)
+	    throws Exception, IOException, InterruptedException {
+	JIRAUpdater.updateJiraTicket(result, method, driver);
+	selendroidServer.stopSelendroid();
+	if(driver!=null){
 	    driver.quit();
 	}
 	if (selendroidServer != null) {

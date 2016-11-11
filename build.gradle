@@ -22,6 +22,7 @@ jar {
 
 repositories {
     	mavenCentral()
+    	jcenter()
     }
 
 dependencies {
@@ -62,14 +63,22 @@ dependencies {
 	compile group: 'org.uncommons', name: 'reportng', version: '1.1.4'
 	compile group: 'com.jcraft', name: 'jsch', version: '0.1.53'
 	compile group: 'junit' , name: 'junit', version: '4.1.2'
-	compile group: 'io.appium', name: 'java-client', version: '2.2.0'
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
 
 	//Browsermob Proxy
 	compile group: 'net.lightbody.bmp', name: 'browsermob-core', version: '2.1.0-beta-4'
 	compile group: 'net.lightbody.bmp', name: 'browsermob-core-littleproxy', version: '2.1.0-beta-4'
 	
+	//Dockerization
+	compile group: 'org.rnorth.test-containers', name: 'test-containers', version: '0.9.5'
+	compile group: 'org.testcontainers', name: 'testcontainers', version: '1.1.5'
+	compile 'org.testcontainers:selenium:1.1.5'
+	compile 'com.atlassian.httpclient:atlassian-httpclient-api:0.9.9'
+	
 	//Selendroid
 	compile group: 'io.selendroid', name: 'selendroid-standalone', version: '0.17.0'
+	compile group: 'io.selendroid', name: 'selendroid-client', version: '0.17.0'
 }
 
 eclipse {

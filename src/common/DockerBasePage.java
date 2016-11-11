@@ -1,6 +1,7 @@
 package common;
 
 import static common.Properties.DOCKER_SELENIUM;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -27,12 +28,12 @@ public class DockerBasePage {
 	public static WebDriver driver;
 
 	@BeforeSuite
-	public void beforeSuite() {
-		// Add Before Suite Methods here is required
-	}
+	    public void beforeSuite() {
+		CommonFunctions.createTestBot();
+	    }
 
 	@BeforeMethod(alwaysRun = true)
-	public void beforeMethod() throws IOException {
+	public void startup() throws IOException {
 		String browser = CommonFunctions.getBrowser();
 		LOGGER.info("Starting dockerised browser: " + browser);
 
@@ -46,7 +47,7 @@ public class DockerBasePage {
 			capabilities.setBrowserName("chrome");
 			capabilities.setPlatform(Platform.LINUX);
 
-			// Send removeWebDriver to dockerised selenium hub
+			// Send remoteWebDriver to Selenium hub
 			driver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
 			break;
 		}
@@ -56,7 +57,7 @@ public class DockerBasePage {
 			capabilities.setBrowserName("firefox");
 			capabilities.setPlatform(Platform.LINUX);
 
-			// Send removeWebDriver to selenium hub
+			// Send remoteWebDriver to Selenium hub
 			driver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
 			break;
 		}
@@ -64,10 +65,11 @@ public class DockerBasePage {
 	}
 
 	@AfterMethod(alwaysRun = true)
-	public void afterMethod(ITestResult result, Method method)
+	public void tearDown(ITestResult result, Method method)
 			throws Exception, IOException, InterruptedException {
 		JIRAUpdater.updateJiraTicket(result, method, driver);
-		driver.quit();
-
+		if(driver!=null){
+		    driver.quit();
+		}
 	}
 }

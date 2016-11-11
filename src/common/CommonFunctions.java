@@ -79,7 +79,7 @@ public class CommonFunctions {
 	try {
 	    return readSettings(entryNo);
 	} catch (IOException e) {
-	    throw new RuntimeException("Error fetching data from settings.txt",
+	    throw new RuntimeException("Error fetching data from settings.txt for line " + entryNo,
 		    e);
 	}
     }
@@ -171,19 +171,6 @@ public class CommonFunctions {
 		.until(ExpectedConditions.elementToBeClickable(By
 			.cssSelector(cssSelector)));
 	Assert.assertTrue(element.isDisplayed());
-    }
-
-    public static void waitForUrl(WebDriver driver, String url) {
-	driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-	driver.getCurrentUrl();
-	for (int i = 0; i < 60; i++) {
-	    if (getCurrentUrl(driver) == url) {
-		i = 60;
-		break;
-	    } else {
-		threadSleep(1);
-	    }
-	}
     }
 
     // Clicks an element on a webpage if it is present
@@ -335,6 +322,7 @@ public class CommonFunctions {
 
     // Assert that text is present on a page
     public static void textAssert(WebDriver driver, String text) {
+	LOGGER.info("Asserting page source contains " + text);
 	boolean testPass;
 	if (driver.getPageSource().contains(text)) {
 	    testPass = true;
@@ -554,10 +542,8 @@ public class CommonFunctions {
 	boolean isMatch = false;
 	try {
 	    Scanner scanner = new Scanner(file);
-	    int lineNum = 0;
 	    while (scanner.hasNextLine()) {
 		String line = scanner.nextLine();
-		lineNum++;
 		if (line.contains(matchText)) {
 		    isMatch = true;
 		} else {
@@ -611,4 +597,39 @@ public class CommonFunctions {
 	    int responseCodeExpected) {
 	Assert.assertEquals(getHttpResponseCode(url), responseCodeExpected);
     }
+    
+    public static void createTestBot() {
+	System.out.println("###########################################");
+	System.out.println("###########################################");
+	System.out.println("#                                         #");
+	System.out.println("#            Building TestBot             #");
+	System.out.println("#                                         #");
+	System.out.println("###########################################");
+	System.out.println("###########################################");
+	System.out.println("   _______                   ________    |");
+	System.out.println("  |ooooooo|      ____       | __  __ |   |");
+	System.out.println("  |[]+++[]|     [____]      |/  \\/  \\|   |");
+	System.out.println("  |+ ___ +|     ]()()[      |\\__/\\__/|   |");
+	System.out.println("  |:|   |:|   ___\\__/___    |[][][][]|   |");
+	System.out.println("  |:|___|:|  |__|    |__|   |++++++++|   |");
+	System.out.println("  |[]===[]|   |_|_/\\_|_|    | ______ |   |");
+	System.out.println("_ ||||||||| _ | | __ | | __ ||______|| __|");
+	System.out.println("  |_______|   |_|[::]|_|    |________|   \\");
+	System.out.println("              \\_|_||_|_/                  \\");
+	System.out.println("	        |_||_|                     \\");
+	System.out.println("               _|_||_|_                     \\");
+	System.out.println("	  ___ |___||___|                     \\");
+	System.out.println("	 /  __\\          ____                 \\");
+	System.out.println("	 \\( oo          (___ \\                 \\");
+	System.out.println("	 _\\_o/           oo~)/");
+	System.out.println("	/ \\|/ \\         _\\-_/_");
+	System.out.println("       / / __\\ \\___    / \\|/  \\");
+	System.out.println("       \\ \\|   |__/_)  / / .- \\ \\");
+	System.out.println("	\\/_)  |       \\ \\ .  /_/");
+	System.out.println("	 ||___|        \\/___(_/");
+	System.out.println("	 | | |          | |  |");
+	System.out.println("	 | | |          | |  |");
+	System.out.println("	 |_|_|          |_|__|");
+	System.out.println("	 [__)_)        (_(___]");
+}
 }
