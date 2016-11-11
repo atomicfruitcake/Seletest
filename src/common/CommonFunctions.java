@@ -79,7 +79,8 @@ public class CommonFunctions {
 	try {
 	    return readSettings(entryNo);
 	} catch (IOException e) {
-	    throw new RuntimeException("Error fetching data from settings.txt for line " + entryNo,
+	    throw new RuntimeException(
+		    "Error fetching data from settings.txt for line " + entryNo,
 		    e);
 	}
     }
@@ -104,9 +105,14 @@ public class CommonFunctions {
 	return getSettings(3);
     }
 
-    // Gets the browser from the settings file
+    // Gets the update jira setting from the settings file
     public static String getUpdateJira() {
 	return getSettings(4);
+    }
+
+    // Gets the screenshot setting from the settings file
+    public static String getScreenshotToggle() {
+	return getSettings(5);
     }
 
     // Start the browser at a given URL
@@ -288,21 +294,24 @@ public class CommonFunctions {
 
     // Takes a screenshot of the browser
     public static void screenshot(String name, WebDriver driver) {
+	if (getScreenshotToggle() == "yes") {
 
-	Date dDate = new Date();
-	SimpleDateFormat fullFormat = new SimpleDateFormat("yyyy.MM.dd_HHmmss");
-	File screenshot = ((TakesScreenshot) driver)
-		.getScreenshotAs(OutputType.FILE);
+	    Date dDate = new Date();
+	    SimpleDateFormat fullFormat = new SimpleDateFormat(
+		    "yyyy.MM.dd_HHmmss");
+	    File screenshot = ((TakesScreenshot) driver)
+		    .getScreenshotAs(OutputType.FILE);
 
-	try {
-	    FileUtils.copyFile(screenshot, new File("screenshots\\" + name
-		    + "_" + fullFormat.format(dDate) + ".png"));
-	}
+	    try {
+		FileUtils.copyFile(screenshot, new File("screenshots\\" + name
+			+ "_" + fullFormat.format(dDate) + ".png"));
+	    }
 
-	catch (Exception ex) {
-	    LOGGER.severe("Error creating screenshot");
-	    System.out.println(ex.getMessage());
-	    System.out.println(ex.getStackTrace());
+	    catch (Exception ex) {
+		LOGGER.severe("Error creating screenshot");
+		System.out.println(ex.getMessage());
+		System.out.println(ex.getStackTrace());
+	    }
 	}
     }
 
@@ -379,8 +388,7 @@ public class CommonFunctions {
 	return textInsideInputBox;
     }
 
-    // Build TestNG XML file. Replace hardcoded values to programmatically build
-    // different testing configurations
+    // Builds the TestNG XML file
     public static void buildTestngXml() throws IOException {
 	LOGGER.info("Building TestNG XML file");
 	Document document = DocumentHelper.createDocument();
@@ -451,7 +459,7 @@ public class CommonFunctions {
     // Tunnels into server to run shell Commands
     public static void tunnelIntoServer(String shellCommand, int port)
 	    throws JSchException, IOException {
-	LOGGER.info("Tunneling into app server to run command: " + shellCommand);
+	LOGGER.info("Tunneling into server to run command: " + shellCommand);
 	Properties config = new Properties();
 	JSch jsch = new JSch();
 	Session session = jsch.getSession(SERVERUSERNAME, SERVERIP, port);
@@ -480,6 +488,7 @@ public class CommonFunctions {
 
     // Returns that name of the current operating system
     public static String operatingSystem() {
+	LOGGER.info("Checking Operating System");
 	String operatingSystem = null;
 	try {
 	    if (getOS().startsWith("windows")) {
@@ -505,15 +514,14 @@ public class CommonFunctions {
     // Send content to a slack channel
     public static void updateSlackTestBot(String content)
 	    throws InterruptedException {
-
+	LOGGER.info("Sending " + content + " to Slack");
 	String testReport = "'text': 'Test Report: ";
 	String slackChannel = "";
 	String payload = "\"payload={" + slackChannel + testReport + content
 		+ "'}\" ";
 
 	String testBotCurl = curlPOSTFlags + payload + slackWebhookAPI;
-	System.out.println(testBotCurl);
-	CommonFunctions.runTerminalCommand(testBotCurl);
+	runTerminalCommand(testBotCurl);
     }
 
     // Create text file if it does not exist and append text
@@ -577,6 +585,7 @@ public class CommonFunctions {
 
     // Gets the Http response code for a given url
     public static int getHttpResponseCode(String url) {
+	LOGGER.info("Getting URL response code for " + url);
 	int response = 0;
 	try {
 	    HttpURLConnection.setFollowRedirects(false);
@@ -595,9 +604,11 @@ public class CommonFunctions {
     // Verifies the Http Response code for a given url
     public static void verifyHttpResponseCode(String url,
 	    int responseCodeExpected) {
+	LOGGER.info("Asserting reponse code for " + url + " is equal to "
+		+ responseCodeExpected);
 	Assert.assertEquals(getHttpResponseCode(url), responseCodeExpected);
     }
-    
+
     public static void createTestBot() {
 	System.out.println("###########################################");
 	System.out.println("###########################################");
@@ -631,5 +642,5 @@ public class CommonFunctions {
 	System.out.println("	 | | |          | |  |");
 	System.out.println("	 |_|_|          |_|__|");
 	System.out.println("	 [__)_)        (_(___]");
-}
+    }
 }

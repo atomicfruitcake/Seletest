@@ -2,4 +2,5 @@ env
 username
 password
 chrome
-Yes
+yes
+yes

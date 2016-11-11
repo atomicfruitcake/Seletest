@@ -17,10 +17,14 @@ import common.DockerBasePage;
 @Test
 public class ExampleDockerTest extends DockerBasePage {
     public void DockerTest() {
+	
+	// Start the browser at google homepage
 	CommonFunctions.startBrowser(driver, GOOGLE);
 	
+	// Wait for 10 seconds
 	CommonFunctions.threadSleep(10);
 	
+	// Assert that the user is still on google homepage
 	CommonFunctions.pageAssert(driver, GOOGLE);
     }
 }

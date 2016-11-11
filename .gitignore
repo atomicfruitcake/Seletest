@@ -1,4 +1,5 @@
 /bin/
+/build/
 /.classpath
 /.project
 /.settings
@@ -8,4 +9,5 @@
 /gradle-bin.jar
 /gradle-bin.properties
 /build/*
+debug.log
 

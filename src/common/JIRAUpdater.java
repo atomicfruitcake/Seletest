@@ -30,6 +30,7 @@ public class JIRAUpdater {
     // Creates an HTTP URL Connection to a JIRA Instance
     public static HttpURLConnection connectJiraAPI(String jiraURL)
 	    throws IOException {
+	LOGGER.info("Creating connection to JIRA API");
 	URL urlObject = new URL(jiraURL);
 	HttpURLConnection httpURLConnection = (HttpURLConnection) urlObject
 		.openConnection();
@@ -82,14 +83,12 @@ public class JIRAUpdater {
     // Adds a comment to a JIRA ticket
     public static void commentJiraTicket(String jiraid, String comment)
 	    throws IOException {
-
+	LOGGER.info("Updating Jira ticket: " + jiraid + " with comment "
+		+ comment);
 	String jiraURL = JIRA + jiraid + "/comment";
 	HttpURLConnection httpURLConnection = connectJiraAPI(jiraURL);
 	httpURLConnection.connect();
 	String data = "{\"body\":\"" + comment + "\"}";
-	LOGGER.info("Updating Jira ticket: " + jiraid + " with comment "
-		+ comment);
-
 	sendDataHTTPConnection(data, httpURLConnection);
     }
 
@@ -135,31 +134,26 @@ public class JIRAUpdater {
     public static void updateJiraTicket(ITestResult result, Method method,
 	    WebDriver driver) throws Exception, IOException,
 	    InterruptedException {
-	String testName = method.getName();
-	@SuppressWarnings(value = {})
-	String jiraTicketFull = testName;
-	String updateJiraResult = CommonFunctions.getUpdateJira();
-	long timeTaken = (result.getEndMillis() - result.getStartMillis()) / 1000L;
-	switch (updateJiraResult) {
-	case "Yes":
+	switch (CommonFunctions.getUpdateJira().toLowerCase()) {
+	case "yes":
 	    if (result.getStatus() == ITestResult.FAILURE) {
-		JIRAUpdater.FailTicket(jiraTicketFull,
-			String.valueOf(timeTaken));
-		LOGGER.info(jiraTicketFull + " : FAILED");
-		CommonFunctions.screenshot(jiraTicketFull + " Fail", driver);
+		JIRAUpdater.FailTicket(method.getName(), String.valueOf((result
+			.getEndMillis() - result.getStartMillis()) / 1000L));
+		LOGGER.info(method.getName() + " : FAILED");
+		CommonFunctions.screenshot(method.getName() + " Fail", driver);
 
 	    } else if (result.getStatus() == ITestResult.SUCCESS) {
-		JIRAUpdater.PassTicket(jiraTicketFull,
-			String.valueOf(timeTaken));
-		LOGGER.info(jiraTicketFull + " : PASSED");
+		JIRAUpdater.PassTicket(method.getName(), String.valueOf((result
+			.getEndMillis() - result.getStartMillis()) / 1000L));
+		LOGGER.info(method.getName() + " : PASSED");
 	    }
-	case "No":
+	case "no":
 	    if (result.getStatus() == ITestResult.FAILURE) {
-		LOGGER.info(jiraTicketFull + " : FAILED");
-		CommonFunctions.screenshot(jiraTicketFull + " Fail", driver);
+		LOGGER.info(method.getName() + " : FAILED");
+		CommonFunctions.screenshot(method.getName() + " Fail", driver);
 
 	    } else if (result.getStatus() == ITestResult.SUCCESS) {
-		LOGGER.info(jiraTicketFull + " : PASSED");
+		LOGGER.info(method.getName() + " : PASSED");
 	    }
 	}
     }
