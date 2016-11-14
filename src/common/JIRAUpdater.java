@@ -141,7 +141,6 @@ public class JIRAUpdater {
 			.getEndMillis() - result.getStartMillis()) / 1000L));
 		LOGGER.info(method.getName() + " : FAILED");
 		CommonFunctions.screenshot(method.getName() + " Fail", driver);
-
 	    } else if (result.getStatus() == ITestResult.SUCCESS) {
 		JIRAUpdater.PassTicket(method.getName(), String.valueOf((result
 			.getEndMillis() - result.getStartMillis()) / 1000L));
@@ -151,7 +150,6 @@ public class JIRAUpdater {
 	    if (result.getStatus() == ITestResult.FAILURE) {
 		LOGGER.info(method.getName() + " : FAILED");
 		CommonFunctions.screenshot(method.getName() + " Fail", driver);
-
 	    } else if (result.getStatus() == ITestResult.SUCCESS) {
 		LOGGER.info(method.getName() + " : PASSED");
 	    }

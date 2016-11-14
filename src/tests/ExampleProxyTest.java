@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import common.CommonFunctions;
 import common.CommonMethods;
-import common.ProxyBasePage;
+import common.basepage.ProxyBasePage;
 
 /**
  * @author atomicfruitcake
@@ -28,7 +28,7 @@ public class ExampleProxyTest extends ProxyBasePage{
 	
 	// Wait so that traffic will have been sent and read by the proxy server
 	CommonFunctions.threadSleep(5);
-
+	
 	// Test if "foo" can be found in the network traffic
 	CommonFunctions.scanHarFileForMatch(server.getHar(), GOOGLE_SEARCH_TERM);
     }

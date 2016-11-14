@@ -13,9 +13,9 @@ docker-compose up
 #java -jar acceptance-tests.jar
 
 #Send results
-touch results.html
-cp /test-output/html/index.html results.html
+#touch results.html
+#cp /test-output/html/index.html results.html
 
 #Cleanup
-~docker-compose down
+#docker-compose down
 

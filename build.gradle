@@ -37,10 +37,10 @@ dependencies {
 	compile group: 'org.seleniumhq.selenium', name: 'selenium-ie-driver', version: '2.48.2'
 	compile "com.codeborne:phantomjsdriver:1.2.1"
 	
-	//TestNG
+    //TestNG
     compile group: 'org.testng', name: 'testng', version: '6.9.10'
-    compile 'org.netbeans.external:testng-6.5.1-dist:RELEASE721'
-		
+    compile 'org.netbeans.external:testng-6.5.1-dist:RELEASE721'	
+
 	//Dependent jars
 	compile group: 'org.apache.james', name: 'apache-mime4j', version: '0.6'
 	compile group: 'bsh', name: 'bsh', version: '2.0b4'

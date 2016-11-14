@@ -282,6 +282,12 @@ public class CommonFunctions {
 	}
     }
 
+    public static void defaultStringReturner(String string) {
+	if ((string == null) || string.isEmpty() == true) {
+	    string = "Filled by default to prevent null pointer exception";
+	}
+    }
+
     // Select an option from a drop down menu
     public static void selectFromDropDown(WebDriver driver, String cssSelector,
 	    int index) {
@@ -303,7 +309,7 @@ public class CommonFunctions {
 		    .getScreenshotAs(OutputType.FILE);
 
 	    try {
-		FileUtils.copyFile(screenshot, new File("screenshots\\" + name
+		FileUtils.copyFile(screenshot, new File("Screenshots\\" + name
 			+ "_" + fullFormat.format(dDate) + ".png"));
 	    }
 
