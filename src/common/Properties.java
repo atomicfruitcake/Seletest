@@ -38,9 +38,14 @@ public class Properties {
 	// Jira Bot login details
 	public static final String JIRABOTUSERNAME = "";
 	public static final String JIRABOTPASSWORD = "";
+	
+	// Mailinator details
+	public static final String MAILINATOR_LOGIN = "https://www.mailinator.com/";
+	public static final String MAILINATOR_USERNAME = "";
+	public static final String MAILINATOR_PASSWORD = "";
 
 	// Slack details
-	public static final String SLACK_WEBHOOK_API = "";
+	public static final String SLACK_WEBHOOK = "";
 
 	// Test Packages
 	public static final String[] TEST_PACKAGES = new String[] {"Tests"};

@@ -1,6 +1,8 @@
 package common;
 
 import static common.Properties.*;
+import in.ashwanthkumar.slack.webhook.Slack;
+import in.ashwanthkumar.slack.webhook.SlackMessage;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -443,6 +445,21 @@ public class CommonFunctions {
 	return getRandomString(20).toLowerCase() + "@mailinator.com";
     }
 
+    public static void updateSlackTestBot(String content) {
+	LOGGER.info("Updating Slack " + content);
+	try{
+		new Slack(SLACK_WEBHOOK)
+		.icon(":smile:")
+		.sendToChannel("")
+		.displayName("testbot")
+		.push(new SlackMessage(content));
+	} catch(Exception e) {
+		LOGGER.warning("unable to connect to slack");
+		e.printStackTrace();
+		}
+	}
+
+
     // Runs a terminal command from string input
     public static void runTerminalCommand(String curlCommand)
 	    throws InterruptedException {
@@ -511,23 +528,6 @@ public class CommonFunctions {
 	    LOGGER.warning("Unable to determine native Operating System");
 	}
 	return operatingSystem;
-    }
-
-    // Updates Slack channel as Testbot
-    private static String slackWebhookAPI = SLACK_WEBHOOK_API;
-    private static String curlPOSTFlags = "curl -X POST --data-urlencode ";
-
-    // Send content to a slack channel
-    public static void updateSlackTestBot(String content)
-	    throws InterruptedException {
-	LOGGER.info("Sending " + content + " to Slack");
-	String testReport = "'text': 'Test Report: ";
-	String slackChannel = "";
-	String payload = "\"payload={" + slackChannel + testReport + content
-		+ "'}\" ";
-
-	String testBotCurl = curlPOSTFlags + payload + slackWebhookAPI;
-	runTerminalCommand(testBotCurl);
     }
 
     // Create text file if it does not exist and append text
