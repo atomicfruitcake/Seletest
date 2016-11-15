@@ -20,7 +20,7 @@ public class Properties {
 	// URL list
 	public static final String BASE_URL = CommonFunctions.environmentSelector();
 	public static final String GOOGLE = "https://www.google.co.uk/";
-	public static final String EXAMPLE = "http://www.example.com";
+	public static final String EXAMPLE = "http://www.example.com/";
 	
 	// Jira Instance URL for automated updating of test tickets
 	public static final String JIRA = "";
@@ -38,12 +38,17 @@ public class Properties {
 	// Jira Bot login details
 	public static final String JIRABOTUSERNAME = "";
 	public static final String JIRABOTPASSWORD = "";
+	
+	// Mailinator details
+	public static final String MAILINATOR_LOGIN = "https://www.mailinator.com/";
+	public static final String MAILINATOR_USERNAME = "";
+	public static final String MAILINATOR_PASSWORD = "";
 
 	// Slack details
-	public static final String SLACK_WEBHOOK_API = "";
+	public static final String SLACK_WEBHOOK = "";
 
 	// Test Packages
-	public static final String[] TEST_PACKAGES = new String[] {"Tests" };
+	public static final String[] TEST_PACKAGES = new String[] {"Tests"};
 
 	// Google Test Data
 	public static final String GOOGLE_SEARCH_TERM = "foo";

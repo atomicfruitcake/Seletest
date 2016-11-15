@@ -2,9 +2,9 @@ package tests;
 
 import org.testng.annotations.Test;
 
-import common.BasePage;
 import common.CommonFunctions;
 import common.CommonMethods;
+import common.basepage.BasePage;
 import static common.Properties.GOOGLE;
 import static common.Properties.GOOGLE_SEARCH_TERM;
 

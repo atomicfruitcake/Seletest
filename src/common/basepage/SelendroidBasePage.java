@@ -1,4 +1,4 @@
-package common;
+package common.basepage;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -9,6 +9,9 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+
+import common.CommonFunctions;
+import common.JIRAUpdater;
 
 import io.selendroid.client.SelendroidDriver;
 import io.selendroid.common.SelendroidCapabilities;

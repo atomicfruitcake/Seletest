@@ -37,10 +37,10 @@ dependencies {
 	compile group: 'org.seleniumhq.selenium', name: 'selenium-ie-driver', version: '2.48.2'
 	compile "com.codeborne:phantomjsdriver:1.2.1"
 	
-	//TestNG
+    //TestNG
     compile group: 'org.testng', name: 'testng', version: '6.9.10'
-    compile 'org.netbeans.external:testng-6.5.1-dist:RELEASE721'
-		
+    compile 'org.netbeans.external:testng-6.5.1-dist:RELEASE721'	
+
 	//Dependent jars
 	compile group: 'org.apache.james', name: 'apache-mime4j', version: '0.6'
 	compile group: 'bsh', name: 'bsh', version: '2.0b4'
@@ -65,6 +65,7 @@ dependencies {
 	compile group: 'junit' , name: 'junit', version: '4.1.2'
 	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
+	compile group: 'in.ashwanthkumar', name: 'slack-java-webhook', version: '0.0.7'
 
 	//Browsermob Proxy
 	compile group: 'net.lightbody.bmp', name: 'browsermob-core', version: '2.1.0-beta-4'

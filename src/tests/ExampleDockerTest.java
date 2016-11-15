@@ -1,9 +1,10 @@
 package tests;
 
 import org.testng.annotations.Test;
+
 import static common.Properties.GOOGLE;
 import common.CommonFunctions;
-import common.DockerBasePage;
+import common.basepage.DockerBasePage;
 
 /**
  * @author atomicfruitcake

@@ -2,8 +2,8 @@ package tests;
 
 import org.testng.annotations.Test;
 
-import common.BasePage;
 import common.CommonFunctions;
+import common.basepage.BasePage;
 import static common.Properties.EXAMPLE;
 
 /**
