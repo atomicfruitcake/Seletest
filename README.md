@@ -22,30 +22,30 @@ Now just import the project in to your IDE of choice
 
 ## Custom settings and Properties
 The settings.txt file is used to pass custom settings to the test. This is where you should enter test usernames, test passwords and environment names etc.... 
-The Properties file should contain all the data required to run the tests. Test usernames, passwords and environments should be updated here from the settings file.  The settings file should be written in the following format: <br />
+The Properties file should contain all the data required to run the tests. Test usernames, passwords and environments should be updated here from the settings file.  The settings file should be written in the following format:  
 
 ```
-Environment <br />
-Username <br />
-Password <br />
-Browser <br />
-Update jira toggle <br />
-Take screenshot on fail toggle <br />
-Name of test Suite <br />
-Update Slack Toggle <br />
+Environment  
+Username  
+Password  
+Browser  
+Update jira toggle  
+Take screenshot on fail toggle  
+Name of test Suite  
+Update Slack Toggle  
 ```
 
-And here is an example settings.txt <br />
+And here is an example settings.txt  
 
 ```
-SIT <br />
-test@mailinator.com <br />
-@&*12Af% <br />
-Chrome <br />
-Yes Update Jira <br />
-Yes Screenshot <br />
-test <br />
-No Update Slack<br />
+SIT  
+test@mailinator.com  
+@&*12Af%  
+Chrome  
+Yes Update Jira  
+Yes Screenshot  
+test  
+No Update Slack  
 ```
 
 Also populate all the required URLs for starting browser and assert pages. If using JIRA or Slack, you will want to add the URL and/or webhook API details for the relevant instances. This should be done in /src/common/Properties.java
@@ -64,15 +64,25 @@ CommonFunctions.clickElement(driver, "[id='elementID']");
 ```
 
 #Supported Browser
-The following table shows browser support for Standard (Tests using BasePage), Dockerised (tests using DockerBasePage), and Proxy (tests using ProxyBasePage).
+The following table shows browser support for Standard (Tests using BasePage), Docker (tests using DockerBasePage), and Proxy (tests using ProxyBasePage).
+
+| Browser           | Standard | Docker | Proxy |
+|-------------------|----------|--------|-------|
+| Chrome            | Yes      | Yes    | No    |
+| Firefox           | Yes      | Yes    | Yes   |
+| Internet Explorer | Yes      | No     | No    |
+| PhantomJS         | Yes      | No     | No    |
+| HTML Unit         | Yes      | No     | No    |  
+
+
  
  |Browser           | Standard | Dockerized | Proxy  |    
  |:-----------------|:--------:|:----------:|:------:|  
- |Chrome            | &#10004  | &#10004    | &#10008|    
- |Firefox           | &#10004  | &#10004    | &#10004|   
- |Internet Explorer | &#10004  | &#10008    | &#10008|  
- |PhantomJS         | &#10004  | &#10008    | &#10008|  
- |HTML Unit         | &#10004  | &#10008    | &#10008|  
+ |Chrome            | Yes  | Yes    | No|    
+ |Firefox           | Yes | Yes   | Yes|   
+ |Internet Explorer | Yes  | No   | No|  
+ |PhantomJS         | Yes  | No   | No|  
+ |HTML Unit         | Yes  | No   | No|  
  
  To change browsers, edit the 4th Line of the settings file.
  
