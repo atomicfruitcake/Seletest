@@ -35,7 +35,7 @@ dependencies {
 	compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '2.48.2'
 	compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '2.48.2'
 	compile group: 'org.seleniumhq.selenium', name: 'selenium-ie-driver', version: '2.48.2'
-	compile "com.codeborne:phantomjsdriver:1.2.1"
+	compile group: 'com.github.detro.ghostdriver', name: 'phantomjsdriver', version: '1.1.0'
 	
     //TestNG
     compile group: 'org.testng', name: 'testng', version: '6.9.12'

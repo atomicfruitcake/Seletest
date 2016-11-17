@@ -90,42 +90,42 @@ public class CommonFunctions {
 
     // Get environment name from settings file
     public static String getEnvironment() {
-	return getSettings(0);
+	return getSettings(0).replaceAll("\\s+", "");
     }
 
     // Gets the username from the settings file
     public static String getUsername() {
-	return getSettings(1);
+	return getSettings(1).replaceAll("\\s+", "");
     }
 
     // Gets the password from the settings file
     public static String getPassword() {
-	return getSettings(2);
+	return getSettings(2).replaceAll("\\s+", "");
     }
 
     // Gets the browser from the settings file
     public static String getBrowser() {
-	return getSettings(3);
+	return getSettings(3).replaceAll("\\s+", "");
     }
 
     // Gets the update jira setting from the settings file
     public static String getUpdateJira() {
-	return getSettings(4);
+	return getSettings(4).replaceAll("\\s+", "");
     }
 
     // Gets the screenshot setting from the settings file
     public static String getScreenshotToggle() {
-	return getSettings(5);
+	return getSettings(5).replaceAll("\\s+", "");
     }
-    
+
     // Gets the screenshot setting from the settings file
     public static String getTestSuite() {
-	return getSettings(6);
+	return getSettings(6).replaceAll("\\s+", "");
     }
-    
+
     // Gets the screenshot setting from the settings file
     public static String getUpdateSlack() {
-	return getSettings(7);
+	return getSettings(7).replaceAll("\\s+", "");
     }
 
     // Start the browser at a given URL
@@ -133,7 +133,6 @@ public class CommonFunctions {
 	LOGGER.info("Starting browser with URL: " + url);
 	driver.get(url);
 	driver.manage().window().maximize();
-
     }
 
     // Gets the URL for a given server
@@ -313,8 +312,7 @@ public class CommonFunctions {
 
     // Takes a screenshot of the browser
     public static void screenshot(String name, WebDriver driver) {
-	if (getScreenshotToggle() == "yes") {
-
+	if (getScreenshotToggle().toLowerCase() == "yesscreenshot") {
 	    Date dDate = new Date();
 	    SimpleDateFormat fullFormat = new SimpleDateFormat(
 		    "yyyy.MM.dd_HHmmss");
@@ -425,10 +423,7 @@ public class CommonFunctions {
 		"org.uncommons.reportng.JUnitXMLReporter");
 	Element test = suite.addElement("test").addAttribute("name", "tests");
 	Element packages = test.addElement("packages");
-	for (int i = 0; i < TEST_PACKAGES.length; i++) {
-	    packages.addElement("package").addAttribute("name",
-		    TEST_PACKAGES[i]);
-	}
+	packages.addElement("package").addAttribute("name", getTestSuite());
 	FileOutputStream fos = new FileOutputStream("testng.xml");
 	OutputFormat format = OutputFormat.createPrettyPrint();
 	XMLWriter writer = new XMLWriter(fos, format);
@@ -458,18 +453,14 @@ public class CommonFunctions {
 
     public static void updateSlackTestBot(String content) {
 	LOGGER.info("Updating Slack " + content);
-	try{
-		new Slack(SLACK_WEBHOOK)
-		.icon(":smile:")
-		.sendToChannel("")
-		.displayName("testbot")
-		.push(new SlackMessage(content));
-	} catch(Exception e) {
-		LOGGER.warning("unable to connect to slack");
-		e.printStackTrace();
-		}
+	try {
+	    new Slack(SLACK_WEBHOOK).icon(":smile:").sendToChannel("")
+		    .displayName("testbot").push(new SlackMessage(content));
+	} catch (Exception e) {
+	    LOGGER.warning("unable to connect to slack");
+	    e.printStackTrace();
 	}
-
+    }
 
     // Runs a terminal command from string input
     public static void runTerminalCommand(String curlCommand)
@@ -625,15 +616,14 @@ public class CommonFunctions {
 		+ responseCodeExpected);
 	Assert.assertEquals(getHttpResponseCode(url), responseCodeExpected);
     }
-    
+
     // Updates Slack if required after running a test suite
-    public static void updateSlackAfterSuite(ITestContext testContext) throws IOException {
-	System.out.println(getUpdateSlack());
+    public static void updateSlackAfterSuite(ITestContext testContext)
+	    throws IOException {
 	if (getUpdateSlack().equals("yesUpdateSlack")) {
 	    LOGGER.info("Updating slack with test suite results");
-	    updateSlackTestBot(getTestSuite()
-		    + " has been run on " + getEnvironment()
-		    + "\n" + "\n Passed: "
+	    updateSlackTestBot(getTestSuite() + " has been run on "
+		    + getEnvironment() + "\n" + "\n Passed: "
 		    + testContext.getPassedTests().size() + "\n Failed: "
 		    + testContext.getFailedTests().size() + "\n Skipped: "
 		    + testContext.getSkippedTests().size());

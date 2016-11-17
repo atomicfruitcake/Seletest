@@ -28,7 +28,7 @@ import common.JIRAUpdater;
  */
 public class ProxyBasePage {
 
-    private static final Logger LOGGER = Logger.getLogger(BasePage.class
+    private static final Logger LOGGER = Logger.getLogger(ProxyBasePage.class
 	    .getName());
 
     public static WebDriver driver;
@@ -56,6 +56,9 @@ public class ProxyBasePage {
 	JIRAUpdater.updateJiraTicket(result, method, driver);
 	if (driver != null) {
 	    driver.quit();
+	}
+	if (server !=null) {
+	    server.stop();
 	}
     }
 

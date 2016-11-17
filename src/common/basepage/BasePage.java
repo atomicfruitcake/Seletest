@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.testng.ITestContext;
@@ -65,6 +66,11 @@ public class BasePage {
 	case "phantom": {
 	    System.setProperty("phantomjs.binary.path", PHANTOMJS);
 	    driver = new PhantomJSDriver();
+	    break;
+	}
+
+	case "htmlunit": {
+	    driver = new HtmlUnitDriver();
 	    break;
 	}
 	}

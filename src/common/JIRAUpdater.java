@@ -135,7 +135,7 @@ public class JIRAUpdater {
 	    WebDriver driver) throws Exception, IOException,
 	    InterruptedException {
 	switch (CommonFunctions.getUpdateJira().toLowerCase()) {
-	case "yes":
+	case "yesupdatejira":
 	    if (result.getStatus() == ITestResult.FAILURE) {
 		JIRAUpdater.FailTicket(method.getName(), String.valueOf((result
 			.getEndMillis() - result.getStartMillis()) / 1000L));
@@ -146,7 +146,7 @@ public class JIRAUpdater {
 			.getEndMillis() - result.getStartMillis()) / 1000L));
 		LOGGER.info(method.getName() + " : PASSED");
 	    }
-	case "no":
+	case "noupdatejira":
 	    if (result.getStatus() == ITestResult.FAILURE) {
 		LOGGER.info(method.getName() + " : FAILED");
 		CommonFunctions.screenshot(method.getName() + " Fail", driver);

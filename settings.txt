@@ -1,8 +1,8 @@
 env
 username
 password
-chrome
-no
-yes
+Phantom
+NoUpdateJira
+YesScreenshot
 test
-yesUpdateSlack
+noUpdateSlack
