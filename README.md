@@ -73,16 +73,6 @@ The following table shows browser support for Standard (Tests using BasePage), D
 | Internet Explorer | Yes      | No     | No    |
 | PhantomJS         | Yes      | No     | No    |
 | HTML Unit         | Yes      | No     | No    |  
-
-
- 
- |Browser           | Standard | Dockerized | Proxy  |    
- |:-----------------|:--------:|:----------:|:------:|  
- |Chrome            | Yes  | Yes    | No|    
- |Firefox           | Yes | Yes   | Yes|   
- |Internet Explorer | Yes  | No   | No|  
- |PhantomJS         | Yes  | No   | No|  
- |HTML Unit         | Yes  | No   | No|  
  
  To change browsers, edit the 4th Line of the settings file.
  
