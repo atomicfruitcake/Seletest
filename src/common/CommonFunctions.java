@@ -48,6 +48,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.TestNG;
 import org.testng.collections.Lists;
 
@@ -115,6 +116,16 @@ public class CommonFunctions {
     // Gets the screenshot setting from the settings file
     public static String getScreenshotToggle() {
 	return getSettings(5);
+    }
+    
+    // Gets the screenshot setting from the settings file
+    public static String getTestSuite() {
+	return getSettings(6);
+    }
+    
+    // Gets the screenshot setting from the settings file
+    public static String getUpdateSlack() {
+	return getSettings(7);
     }
 
     // Start the browser at a given URL
@@ -613,6 +624,22 @@ public class CommonFunctions {
 	LOGGER.info("Asserting reponse code for " + url + " is equal to "
 		+ responseCodeExpected);
 	Assert.assertEquals(getHttpResponseCode(url), responseCodeExpected);
+    }
+    
+    // Updates Slack if required after running a test suite
+    public static void updateSlackAfterSuite(ITestContext testContext) throws IOException {
+	System.out.println(getUpdateSlack());
+	if (getUpdateSlack().equals("yesUpdateSlack")) {
+	    LOGGER.info("Updating slack with test suite results");
+	    updateSlackTestBot(getTestSuite()
+		    + " has been run on " + getEnvironment()
+		    + "\n" + "\n Passed: "
+		    + testContext.getPassedTests().size() + "\n Failed: "
+		    + testContext.getFailedTests().size() + "\n Skipped: "
+		    + testContext.getSkippedTests().size());
+	} else {
+	    LOGGER.info("Slack updater switched off");
+	}
     }
 
     public static void createTestBot() {

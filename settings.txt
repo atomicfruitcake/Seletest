@@ -4,3 +4,5 @@ password
 chrome
 no
 yes
+test
+yesUpdateSlack

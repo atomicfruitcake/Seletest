@@ -6,7 +6,7 @@ Seletest combines Selenium, TestNG, Docker, Selendroid, and BrowerMobProxy so yo
 Seletest can also update JIRA tickets based on Test results and update slack, completely automated.
 The Seletest framework is designed to allow testers to begin scripting automated tests quickly without having to
 set up test reporting alongside selenium. 
-Seletest supports dockerised testing (if docker is installed), network traffic capture with BrowserMobProxy, and mobile web testing with Selendroid. Example tests can be found in src.tests
+Seletest supports dockerised testing (if docker is installed), network traffic capture with BrowserMobProxy, and mobile web testing with Selendroid. Example tests can be found in src.tests Seletest comes with a slackbot to update a slack channel with your test results
 
 # How do I use it?
 ## Initial Setup
@@ -38,7 +38,7 @@ This can be used to select by name/id/value etc... in the following form for max
 CommonFunctions.clickElement(driver, "[id='elementID']");
 ```
 
-##Tips
+#Tips
 * Use the CommonFunctions functions over the standard Selenium functions. If a functions does not exist in CommonFunctions, add it and then submit it to this project!
 * Remove all hardcoded data from tests and keep it in properties. 
 * Currently only Chrome is supported. To add other browsers, add the drivers to the WebDrivers folder and update the properties file.

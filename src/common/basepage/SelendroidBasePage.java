@@ -5,14 +5,15 @@ import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import common.CommonFunctions;
 import common.JIRAUpdater;
-
 import io.selendroid.client.SelendroidDriver;
 import io.selendroid.common.SelendroidCapabilities;
 import io.selendroid.common.device.DeviceTargetPlatform;
@@ -56,15 +57,20 @@ public class SelendroidBasePage {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void tearDown(ITestResult result, Method method)
-	    throws Exception, IOException, InterruptedException {
+    public void tearDown(ITestResult result, Method method) throws Exception,
+	    IOException, InterruptedException {
 	JIRAUpdater.updateJiraTicket(result, method, driver);
 	selendroidServer.stopSelendroid();
-	if(driver!=null){
+	if (driver != null) {
 	    driver.quit();
 	}
 	if (selendroidServer != null) {
 	    selendroidServer.stopSelendroid();
 	}
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public void afterSuite(ITestContext testContext) throws IOException {
+	CommonFunctions.updateSlackAfterSuite(testContext);
     }
 }

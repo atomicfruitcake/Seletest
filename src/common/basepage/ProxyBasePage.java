@@ -12,8 +12,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
@@ -55,5 +57,10 @@ public class ProxyBasePage {
 	if (driver != null) {
 	    driver.quit();
 	}
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public void afterSuite(ITestContext testContext) throws IOException {
+	CommonFunctions.updateSlackAfterSuite(testContext);
     }
 }

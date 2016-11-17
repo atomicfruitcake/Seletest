@@ -14,8 +14,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
@@ -75,5 +77,10 @@ public class BasePage {
 	if (driver != null) {
 	    driver.quit();
 	}
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public void afterSuite(ITestContext testContext) throws IOException {
+	CommonFunctions.updateSlackAfterSuite(testContext);
     }
 }
