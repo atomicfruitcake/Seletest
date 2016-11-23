@@ -7,7 +7,6 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.logging.Logger;
 
-import org.bouncycastle.crypto.agreement.srp.SRP6Client;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -19,8 +18,8 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
-import src.common.CommonFunctions;
-import src.common.JIRAUpdater;
+import common.CommonFunctions;
+import common.JIRAUpdater;
 
 /**
  * @author sambass
@@ -39,7 +38,7 @@ public class DockerBasePage {
 
 	@BeforeMethod(alwaysRun = true)
 	public void startup() throws IOException {
-		String browser = src.CommonFunctions.getBrowser();
+		String browser = CommonFunctions.getBrowser();
 		LOGGER.info("Starting dockerised browser: " + browser);
 
 		if (browser == "") {

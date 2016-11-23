@@ -145,7 +145,7 @@ public class CommonFunctions {
 	public static String getIpAddressServer() throws IOException {
 	Map<String, String> ipSelect = new HashMap<String, String>();
 	ipSelect.put("ENV_NAME, ", "ENV_IP");
-	ipSelect.put("ENV2_NAME", "ENV2_IP");s
+	ipSelect.put("ENV2_NAME", "ENV2_IP");
 	// FIll with all required app servers for server side tests
 	return ipSelect.get(getEnvironment());
     }
@@ -349,7 +349,7 @@ public class CommonFunctions {
 	public static void assertElementNotClickable(WebDriver driver, String cssSelector) {
 		LOGGER.info("Asserting " + cssSelector + " is not clickable");
 		boolean testPass;
-		waitForElement(cssSelector);
+		waitForElement(driver, cssSelector);
 		if (driver.findElement(By.cssSelector(cssSelector)).isEnabled()) {
 			testPass = false;
 		} else {
@@ -552,7 +552,7 @@ public class CommonFunctions {
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
-			LOGGER.info("Could not find file " + filename);
+			LOGGER.info("Could not find file " + file.getName());
 			e.printStackTrace();
 			isMatch = false;
 		}
