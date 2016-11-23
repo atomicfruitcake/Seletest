@@ -146,12 +146,8 @@ public class SlackBot {
 	    Path path = Paths.get("consoleout.txt");
 	    Charset charset = StandardCharsets.UTF_8;
 	    String content = new String(Files.readAllBytes(path), charset);
-	    content = content.replaceAll("FAT", env);
-	    content = content.replaceAll("IAT", env);
-	    content = content.replaceAll("E2E", env);
-	    content = content.replaceAll("FAT2", env);
-	    content = content.replaceAll("IAT2", env);
-	    content = content.replaceAll("E2E2", env);
+	    content = content.replaceAll("ENV_NAME", env);
+	    content = content.replaceAll("ENV2_NAME", env);
 	    Files.write(path, content.getBytes(charset));
 	} catch (Exception e) {
 	    env = null;
