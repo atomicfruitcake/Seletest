@@ -63,7 +63,7 @@ This can be used to select by name/id/value etc... in the following form for max
 CommonFunctions.clickElement(driver, "[id='elementID']");
 ```
 
-#Supported Browser
+#Supported Browsers
 The following table shows browser support for Standard (Tests using BasePage), Docker (tests using DockerBasePage), and Proxy (tests using ProxyBasePage).
 
 | Browser           | Standard | Docker | Proxy |
