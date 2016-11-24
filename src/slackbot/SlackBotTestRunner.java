@@ -86,7 +86,7 @@ public class SlackBotTestRunner {
 	testStop = true;
     }
 
-    // Resets the consoleout.txt settings
+    // Resets the settings.txt file
     public static void resetSlackTestBot() {
 	LOGGER.info("Resetting testbot settings");
 	String filename = SETTINGS_FILE;
