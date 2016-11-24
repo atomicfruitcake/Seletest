@@ -39,7 +39,7 @@ public class SlackBot {
     static SlackChannel slackChannel;
     static String[] slackResults;
 
-    // Creates a webSocket connection to the DDUK Slack instance
+    // Creates a webSocket connection to the Slack instance
     public static void slackSession() throws IOException {
 	LOGGER.info("Creating websocket connection to slack");
 	session = SlackSessionFactory
