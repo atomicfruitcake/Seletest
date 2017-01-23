@@ -1,7 +1,7 @@
 env
 username
 password
-Phantom
+chrome
 NoUpdateJira
 YesScreenshot
 test

@@ -67,6 +67,7 @@ dependencies {
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
 	compile group: 'in.ashwanthkumar', name: 'slack-java-webhook', version: '0.0.7'
 	compile group: 'com.ullink.slack', name: 'simpleslackapi', version: '0.6.0'
+	compile group: 'ru.sbtqa', name: 'monte-media', version: '1.0.1'
 
 	//Browsermob Proxy
 	compile group: 'net.lightbody.bmp', name: 'browsermob-core', version: '2.1.0-beta-4'
@@ -85,7 +86,7 @@ dependencies {
 
 eclipse {
     project {
-        comment = 'acceptance-tests'
+        comment = 'Seletest'
     }
     classpath {
     	//containers 'org.springsource.ide.eclipse.gradle.classpathcontainer'
