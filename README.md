@@ -76,16 +76,6 @@ The following table shows browser support for Standard (Tests using BasePage), D
  
  To change browsers, edit the 4th Line of the settings file.
  
-#Using the Slackbot
-Seletest comes with a built in Slackbot that can be used to run test suites from a slack channel. You will need a slack bot token which is available on an instance of slack. 
-See https://api.slack.com/bot-users for more detail on setting up your slackbot
-Once you've populated the properties, you can start up the bot by running src.common.slackbot.RunSlackBot.java.
-Currently the bot is configured to focus on testing and can run your test packages using commands sent to the bot. For example, assuming you have called your bot testbot for it's slack username,  
-```
-@testbot run tests in SIT  
-```
-would run all the tests inside the src.tests file in your SIT environment, provided that you have set SIT in the environment selector in CommonFunctions.
-
 #Tips
 * Use the CommonFunctions functions over the standard Selenium functions. If a functions does not exist in CommonFunctions, add it and then submit it to this project!
 * Remove all hardcoded data from tests and keep it in properties. 
