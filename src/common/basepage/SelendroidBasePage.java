@@ -24,7 +24,7 @@ import io.selendroid.standalone.SelendroidLauncher;
  * @author atomicfruitcake
  *
  */
-public class SelendroidBasePage {
+public class SelendroidBasePage implements BasePage{
     private static final Logger LOGGER = Logger
 	    .getLogger(SelendroidBasePage.class.getName());
 

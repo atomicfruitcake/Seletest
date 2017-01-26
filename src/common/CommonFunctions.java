@@ -61,7 +61,7 @@ import com.jcraft.jsch.Session;
  * @author atomicfruitcake
  *
  */
-public class CommonFunctions {
+public abstract class CommonFunctions {
 
 	private static final Logger LOGGER = Logger.getLogger(CommonFunctions.class.getName());
 

@@ -26,7 +26,7 @@ import common.JIRAUpdater;
  * @author atomicfruitcake
  *
  */
-public class ProxyBasePage {
+public class ProxyBasePage implements BasePage{
 
     private static final Logger LOGGER = Logger.getLogger(ProxyBasePage.class
 	    .getName());

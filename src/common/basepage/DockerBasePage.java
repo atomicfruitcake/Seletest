@@ -25,7 +25,7 @@ import common.JIRAUpdater;
  * @author sambass
  *
  */
-public class DockerBasePage {
+public class DockerBasePage implements BasePage{
 
 	private static final Logger LOGGER = Logger.getLogger(DockerBasePage.class.getName());
 
@@ -33,7 +33,7 @@ public class DockerBasePage {
 
 	@BeforeSuite
 	public void beforeSuite() {
-
+	    CommonFunctions.createTestBot();
 	}
 
 	@BeforeMethod(alwaysRun = true)
