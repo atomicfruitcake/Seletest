@@ -3,7 +3,7 @@ package common;
 import static common.Properties.MAILINATOR_PASSWORD;
 import static common.Properties.MAILINATOR_LOGIN;
 import static common.Properties.MAILINATOR_USERNAME;
-
+import static common.Properties.VALIDATION_EMAIL_LINK;
 import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
@@ -67,7 +67,7 @@ public abstract class CommonMethods {
     }
 
     public static void respondToMailInMailinator(WebDriver driver) {
-	LOGGER.info("Responding to confirmation email");
+	LOGGER.info("Responding to validation email");
 
 	driver.findElement(By.className("oddrow_public")).click();
 	
@@ -75,11 +75,11 @@ public abstract class CommonMethods {
 
 	driver.switchTo().frame("publicshowmaildivcontent");
 
-	// Click on confirmation link
+	// Click on validation link
 	CommonFunctions
 		.clickElement(
 			driver,
-			"");
+			VALIDATION_EMAIL_LINK);
 
 	// Switch window to confimation page.
 	for (String winHandle : driver.getWindowHandles()) {

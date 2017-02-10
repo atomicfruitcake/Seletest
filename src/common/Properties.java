@@ -54,6 +54,7 @@ public class Properties {
     public static final String MAILINATOR_LOGIN = "https://www.mailinator.com/";
     public static final String MAILINATOR_USERNAME = "";
     public static final String MAILINATOR_PASSWORD = "";
+    public static final String VALIDATION_EMAIL_LINK = "";
 
     // Slack details
     public static final String SLACK_WEBHOOK = "";
