@@ -64,7 +64,7 @@ CommonFunctions.clickElement(driver, "[id='elementID']");
 ```
 
 #Supported Browsers
-The following table shows browser support for Standard (Tests using BasePage), Docker (tests using DockerBasePage), and Proxy (tests using ProxyBasePage).
+The following table shows browser support for Standard (Tests using BrowserBasePage), Docker (tests using DockerBasePage), and Proxy (tests using ProxyBasePage).
 
 | Browser           | Standard | Docker | Proxy |
 |-------------------|----------|--------|-------|
