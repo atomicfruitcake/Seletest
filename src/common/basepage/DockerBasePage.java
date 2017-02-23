@@ -25,7 +25,7 @@ import common.JIRAUpdater;
  * @author sambass
  *
  */
-public class DockerBasePage implements BasePage{
+public abstract class DockerBasePage implements Basepage{
 
 	private static final Logger LOGGER = Logger.getLogger(DockerBasePage.class.getName());
 

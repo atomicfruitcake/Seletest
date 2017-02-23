@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeSuite;
  * @author sambass
  *
  */
-public interface Basepage {
+public abstract interface Basepage {
 
     @BeforeSuite
     public void beforeSuite();

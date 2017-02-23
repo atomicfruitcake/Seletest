@@ -7,7 +7,6 @@ import static common.Properties.PHANTOMJS;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.logging.Logger;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -29,10 +28,7 @@ import common.JIRAUpdater;
  * @author atomicfruitcake
  *
  */
-public class BrowserBasePage implements BasePage {
-
-    private static final Logger LOGGER = Logger.getLogger(BasePage.class
-	    .getName());
+public abstract class BrowserBasePage implements Basepage {
 
     public static WebDriver driver;
 
@@ -43,7 +39,6 @@ public class BrowserBasePage implements BasePage {
 
     @BeforeMethod(alwaysRun = true)
     public void startUp() throws IOException {
-	LOGGER.info("Starting browser: " + CommonFunctions.getBrowser());
 
 	switch (CommonFunctions.getBrowser().toLowerCase()) {
 	case "chrome": {

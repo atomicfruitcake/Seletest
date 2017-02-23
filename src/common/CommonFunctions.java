@@ -116,12 +116,12 @@ public abstract class CommonFunctions {
 		return getSettings(5).replaceAll("\\s+", "");
 	}
 
-	// Gets the screenshot setting from the settings file
+	// Gets the test suite setting from the settings file
 	public static String getTestSuite() {
 		return getSettings(6).replaceAll("\\s+", "");
 	}
 
-	// Gets the screenshot setting from the settings file
+	// Gets the slack update setting from the settings file
 	public static String getUpdateSlack() {
 		return getSettings(7).replaceAll("\\s+", "");
 	}
