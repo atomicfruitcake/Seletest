@@ -1,10 +1,11 @@
 package tests;
 
+import static common.Properties.EXAMPLE;
+
 import org.testng.annotations.Test;
 
 import common.CommonFunctions;
-import common.basepage.BasePage;
-import static common.Properties.EXAMPLE;
+import common.basepage.BrowserBasePage;
 
 /**
  * @author atomicfruitcake
@@ -16,7 +17,7 @@ import static common.Properties.EXAMPLE;
  * maintainable.
  */
 @Test
-public class ExampleTest extends BasePage {
+public class ExampleTest extends BrowserBasePage {
     public void JIRAID() {
 
 	// Open a webpage

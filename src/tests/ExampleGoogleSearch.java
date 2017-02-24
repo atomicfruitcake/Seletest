@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 import common.CommonFunctions;
 import common.CommonMethods;
-import common.basepage.BasePage;
+import common.basepage.BrowserBasePage;
 import static common.Properties.GOOGLE;
 import static common.Properties.GOOGLE_SEARCH_TERM;
 
@@ -17,7 +17,7 @@ import static common.Properties.GOOGLE_SEARCH_TERM;
  *
  */
 @Test
-public class ExampleGoogleSearch extends BasePage {
+public class ExampleGoogleSearch extends BrowserBasePage {
     public void googleSearch() {
 
 	// Start browser on Google

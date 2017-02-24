@@ -20,10 +20,10 @@ public abstract interface Basepage {
     public void beforeSuite();
 
     @BeforeMethod(alwaysRun = true)
-    public void beforeMethod() throws IOException, Exception;
+    public void startup() throws IOException, Exception;
 
     @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult result, Method method)
+    public void tearDown(ITestResult result, Method method)
 	    throws Exception, IOException, InterruptedException;
 
     @AfterSuite(alwaysRun = true)

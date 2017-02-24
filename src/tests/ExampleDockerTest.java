@@ -1,8 +1,9 @@
 package tests;
 
+import static common.Properties.GOOGLE;
+
 import org.testng.annotations.Test;
 
-import static common.Properties.GOOGLE;
 import common.CommonFunctions;
 import common.basepage.DockerBasePage;
 
@@ -28,4 +29,5 @@ public class ExampleDockerTest extends DockerBasePage {
 	// Assert that the user is still on google homepage
 	CommonFunctions.pageAssert(driver, GOOGLE);
     }
+
 }

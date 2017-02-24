@@ -38,7 +38,7 @@ public abstract class BrowserBasePage implements Basepage {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void startUp() throws IOException {
+    public void startup() throws IOException {
 
 	switch (CommonFunctions.getBrowser().toLowerCase()) {
 	case "chrome": {

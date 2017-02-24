@@ -22,7 +22,7 @@ import common.CommonFunctions;
 import common.JIRAUpdater;
 
 /**
- * @author sambass
+ * @author atomicfruitcake
  *
  */
 public abstract class DockerBasePage implements Basepage{
@@ -78,6 +78,5 @@ public abstract class DockerBasePage implements Basepage{
 
 	@AfterSuite(alwaysRun = true)
 	public void afterSuite(ITestContext testContext) throws IOException {
-		CommonFunctions.updateSlackAfterSuite(testContext);
 	}
 }
