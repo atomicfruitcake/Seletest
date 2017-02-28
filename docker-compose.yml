@@ -3,16 +3,16 @@ seleniumhub:
   ports:
     - 4444:4444
 
-firefoxnode:
-  image: selenium/node-firefox-debug
-  ports:
-    - 5900
-  links:
-    - seleniumhub:hub
-
 chromenode:
   image: selenium/node-chrome-debug
   ports:
     - 5900
   links:
     - seleniumhub:hub
+    
+#firefoxnode:
+#  image: selenium/node-firefox-debug
+#  ports:
+#    - 5901
+#  links:
+#    - seleniumhub:hub

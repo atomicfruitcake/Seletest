@@ -1,25 +1,19 @@
 #!/bin/bash/
 
-#Starts up docker selenium hub with chrome node to run Selenium Tests
+#Starts up docker selenium hub with chrome node
 #Author atomicfruitcake
 
-#Go to location of test suite
-#cd /<Path to test suite>
+echo "Please ensure Docker image is deleted from virtualbox GUI"
 
-#Start Selenium grid with chrome and firefox
+# Remove old machine
+docker-machine rm -f default
+
+# Create a new machine called default using a virtualbox driver
+docker-machine create --driver virtualbox default
+eval "$(docker-machine env default)"
+
+# Print the machines IP (should be 192.168.99.100 by default on boot2docker, or localhost if not)
+docker-machine ip default
+
+# Spin up the Selenium Grid
 docker-compose up
-
-#Run the selenium tests
-java -jar <tests>.jar
-
-#Send results
-if [ ! -f results.html ]; then
-    rm -f results.html
-fi
-
-touch results.html
-cp /test-output/html/index.html results.html
-
-#Cleanup
-docker-compose down
-

@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 
 import common.CommonFunctions;
 
-public abstract class git CommonMethods {
+public abstract class CommonMethods {
 
     private static final Logger LOGGER = Logger.getLogger(CommonMethods.class
 	    .getName());

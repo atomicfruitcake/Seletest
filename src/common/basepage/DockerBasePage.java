@@ -25,58 +25,60 @@ import common.JIRAUpdater;
  * @author atomicfruitcake
  *
  */
-public abstract class DockerBasePage implements Basepage{
+public abstract class DockerBasePage implements Basepage {
 
-	private static final Logger LOGGER = Logger.getLogger(DockerBasePage.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DockerBasePage.class
+	    .getName());
 
-	public static WebDriver driver;
+    public static WebDriver driver;
 
-	@BeforeSuite
-	public void beforeSuite() {
-	    CommonFunctions.createTestBot();
+    @BeforeSuite
+    public void beforeSuite() {
+	CommonFunctions.createTestBot();
+    }
+
+    @BeforeMethod(alwaysRun = true)
+    public void startup() throws IOException {
+	String browser = CommonFunctions.getBrowser();
+	LOGGER.info("Starting dockerised browser: " + browser);
+
+	if (browser == "") {
+	    browser = "chrome";
 	}
 
-	@BeforeMethod(alwaysRun = true)
-	public void startup() throws IOException {
-		String browser = CommonFunctions.getBrowser();
-		LOGGER.info("Starting dockerised browser: " + browser);
+	switch (browser) {
+	case "chrome": {
+	    DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+	    capabilities.setBrowserName("chrome");
+	    capabilities.setPlatform(Platform.LINUX);
 
-		if (browser == "") {
-			browser = "chrome";
-		}
-
-		switch (browser) {
-		case "chrome": {
-			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-			capabilities.setBrowserName("chrome");
-			capabilities.setPlatform(Platform.LINUX);
-
-			// Send remoteWebDriver to Selenium hub
-			driver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
-			break;
-		}
-
-		case "firefox": {
-			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-			capabilities.setBrowserName("firefox");
-			capabilities.setPlatform(Platform.LINUX);
-
-			// Send remoteWebDriver to Selenium hub
-			driver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
-			break;
-		}
-		}
+	    // Send remoteWebDriver to Selenium hub
+	    driver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
+	    break;
 	}
 
-	@AfterMethod(alwaysRun = true)
-	public void tearDown(ITestResult result, Method method) throws Exception, IOException, InterruptedException {
-		JIRAUpdater.updateJiraTicket(result, method, driver);
-		if (driver != null) {
-			driver.quit();
-		}
-	}
+	case "firefox": {
+	    DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+	    capabilities.setBrowserName("firefox");
+	    capabilities.setPlatform(Platform.LINUX);
 
-	@AfterSuite(alwaysRun = true)
-	public void afterSuite(ITestContext testContext) throws IOException {
+	    // Send remoteWebDriver to Selenium hub
+	    driver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
+	    break;
 	}
+	}
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void tearDown(ITestResult result, Method method) throws Exception,
+	    IOException, InterruptedException {
+	JIRAUpdater.updateJiraTicket(result, method, driver);
+	if (driver != null) {
+	    driver.quit();
+	}
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public void afterSuite(ITestContext testContext) throws IOException {
+    }
 }
