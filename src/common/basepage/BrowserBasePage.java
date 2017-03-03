@@ -42,10 +42,35 @@ public abstract class BrowserBasePage implements Basepage {
 
 	switch (CommonFunctions.getBrowser().toLowerCase()) {
 	case "chrome": {
-	    System.setProperty("webdriver.chrome.driver", CHROME);
+	    System.setProperty("webdriver.chromedriver", CHROME);
 	    driver = new ChromeDriver();
 	    break;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	case "firefox": {
 	    driver = new FirefoxDriver();

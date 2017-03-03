@@ -28,7 +28,6 @@ public class ExampleDockerTest extends DockerBasePage {
 	CommonFunctions.startBrowser(driver, GOOGLE);
 	
 	List<String> googleSearches = new ArrayList<String>();
-	googleSearches.add("do a barrel roll");
 	googleSearches.add("zerg rush");
 	googleSearches.add("conway's game of life");
 	googleSearches.add("fun facts");
