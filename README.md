@@ -34,7 +34,7 @@ Take screenshot on fail toggle
 Name of test Suite  
 Update Slack Toggle  
 ```
-git bash
+
 And here is an example settings.txt  
 
 ```
