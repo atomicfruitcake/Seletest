@@ -34,7 +34,7 @@ Take screenshot on fail toggle
 Name of test Suite  
 Update Slack Toggle  
 ```
-
+git bash
 And here is an example settings.txt  
 
 ```
@@ -75,7 +75,9 @@ The following table shows browser support for Standard (Tests using BrowserBaseP
 | HTML Unit         | Yes      | No     | No    |  
  
  To change browsers, edit the 4th Line of the settings file.
- 
+
+#Docker Testing
+
 #Tips
 * Use the CommonFunctions functions over the standard Selenium functions. If a functions does not exist in CommonFunctions, add it and then submit it to this project!
 * Remove all hardcoded data from tests and keep it in properties. 

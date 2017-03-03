@@ -42,7 +42,7 @@ public abstract class DockerBasePage implements Basepage {
 	String browser = CommonFunctions.getBrowser();
 	LOGGER.info("Starting dockerised browser: " + browser);
 
-	if (browser == "") {
+	if (browser == null) {
 	    browser = "chrome";
 	}
 
