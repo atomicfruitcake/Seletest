@@ -39,7 +39,7 @@ public abstract class DockerBasePage implements Basepage {
 
     @BeforeMethod(alwaysRun = true)
     public void startup() throws IOException {
-	String browser = CommonFunctions.getBrowser();
+	String browser = CommonFunctions.getBrowser().toLowerCase();
 	LOGGER.info("Starting dockerised browser: " + browser);
 
 	if (browser == null) {

@@ -1,7 +1,7 @@
 env
 username
 password
-chrome
+firefox
 NoUpdateJira
 YesScreenshot
 test

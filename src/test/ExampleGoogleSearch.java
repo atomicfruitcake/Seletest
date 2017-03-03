@@ -1,11 +1,10 @@
-package tests;
+package test;
 
 import org.testng.annotations.Test;
 
 import common.CommonFunctions;
 import common.CommonMethods;
 import common.basepage.BrowserBasePage;
-import common.ScreenRecorder;
 import static common.Properties.GOOGLE;
 import static common.Properties.GOOGLE_SEARCH_TERM;
 
@@ -14,14 +13,12 @@ import static common.Properties.GOOGLE_SEARCH_TERM;
  *
  */
 /**
- * Records a test of google search functionality
+ * Tests google search functionality
  *
  */
 @Test
-public class ExampleScreenRecord extends BrowserBasePage {
-    public void recordGoogleSearch() {
-	// Start the recording
-	//ScreenRecorder.startRecording();
+public class ExampleGoogleSearch extends BrowserBasePage {
+    public void googleSearch() {
 
 	// Start browser on Google
 	CommonFunctions.startBrowser(driver, GOOGLE);
@@ -31,8 +28,6 @@ public class ExampleScreenRecord extends BrowserBasePage {
 
 	// Assert that user has searched for the given term
 	CommonFunctions.pageAssert(driver, GOOGLE + "#q=" + GOOGLE_SEARCH_TERM);
-
-	// Stop the recording
-	//ScreenRecorder.stopRecording();
     }
+
 }

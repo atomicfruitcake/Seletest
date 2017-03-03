@@ -1,4 +1,4 @@
-package tests;
+package test;
 
 import static common.Properties.DOCKER_SELENIUM;
 import static common.Properties.GOOGLE;
@@ -21,10 +21,10 @@ import common.CommonFunctions;
  *
  */
 
-public class ParallelDockerTest  {
+public class ParallelDockerTest {
     
-    public static WebDriver chromeDriver;
-    public static WebDriver firefoxDriver;
+    private static WebDriver chromeDriver;
+    private static WebDriver firefoxDriver;
 
     // Simple Google Easter egg to demonstrate automation
     public void googleEasterEggs(WebDriver driver) {
@@ -32,7 +32,6 @@ public class ParallelDockerTest  {
 	CommonFunctions.startBrowser(driver, GOOGLE);
 
 	List<String> googleSearches = new ArrayList<String>();
-	googleSearches.add("do a barrel roll");
 	googleSearches.add("zerg rush");
 	googleSearches.add("conway's game of life");
 	googleSearches.add("fun facts");
@@ -50,23 +49,35 @@ public class ParallelDockerTest  {
 	}
     }
     
-    public void setDockerizedBrowser(WebDriver driver, String browserName){
+    void startDockerizedChromeBrowser() {
 	DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-	    capabilities.setBrowserName(browserName);
-	    capabilities.setPlatform(Platform.LINUX);
-
-	    // Try and send remoteWebDriver to Selenium hub
-	    try {
-		driver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
-	    } catch (MalformedURLException e) {
-		e.printStackTrace();
-	    }
+	capabilities.setBrowserName("chrome");
+	capabilities.setPlatform(Platform.LINUX);
+	
+	// Try and send remoteWebDriver to Selenium hub
+	try {
+	    chromeDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
+	} catch (MalformedURLException e) {
+	    e.printStackTrace();
+	}
     }
- 
+
+    public void startDockerizedFirefoxBrowser() {
+	DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+	capabilities.setBrowserName("firefox");
+	capabilities.setPlatform(Platform.LINUX);
+
+	// Try and send remoteWebDriver to Selenium hub
+	try {
+	    firefoxDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
+	} catch (MalformedURLException e) {
+	    e.printStackTrace();
+	}
+    }
 
     @Test
     public void parallelDockerTestChrome() {
-	setDockerizedBrowser(chromeDriver, "chrome");
+	startDockerizedChromeBrowser();
 	googleEasterEggs(chromeDriver);
 	if (chromeDriver != null) {
 	    chromeDriver.quit();
@@ -75,7 +86,7 @@ public class ParallelDockerTest  {
 
     @Test
     public void parallelDockerTestFirefox() {
-	setDockerizedBrowser(firefoxDriver, "firefox");
+	startDockerizedFirefoxBrowser();
 	googleEasterEggs(firefoxDriver);
 	if (firefoxDriver != null) {
 	    firefoxDriver.quit();

@@ -3,7 +3,7 @@
 <suite name="Parallel test suite" parallel="methods" thread-count="2">
   <test name="Regression 1">
     <classes>
-      <class name="src.common.tests.ParallelDockerTest"/>
+      <class name="test.ParallelDockerTest"/>
     </classes>
   </test>
 </suite>
