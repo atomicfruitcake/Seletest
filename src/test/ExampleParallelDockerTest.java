@@ -21,7 +21,7 @@ import common.CommonFunctions;
  *
  */
 
-public class ParallelDockerTest {
+public class ExampleParallelDockerTest {
     
     private static WebDriver chromeDriver;
     private static WebDriver firefoxDriver;

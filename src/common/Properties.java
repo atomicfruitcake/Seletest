@@ -38,7 +38,7 @@ public class Properties {
 
     // Browser driver paths
     public static final String PHANTOMJS = "WebDrivers/phantomjs.exe";
-    public static final String IE11 = "WebDrivers/IEDriverServer.exe";
+    public static final String IE11 = "WebDrivers\\IEDriverServer.exe";
     public static final String CHROME = "WebDrivers\\chromedriver.exe";
     public static final String CHROMEOSX = "WebDrivers/chromedriver";
     public static final String FIREFOX = "";
