@@ -49,12 +49,10 @@ public class ExampleParallelDockerTest {
 	}
     }
     
-    void startDockerizedChromeBrowser() {
+    public void startDockerizedChromeBrowser() {
 	DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 	capabilities.setBrowserName("chrome");
 	capabilities.setPlatform(Platform.LINUX);
-	
-	// Try and send remoteWebDriver to Selenium hub
 	try {
 	    chromeDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
 	} catch (MalformedURLException e) {
@@ -66,8 +64,6 @@ public class ExampleParallelDockerTest {
 	DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 	capabilities.setBrowserName("firefox");
 	capabilities.setPlatform(Platform.LINUX);
-
-	// Try and send remoteWebDriver to Selenium hub
 	try {
 	    firefoxDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
 	} catch (MalformedURLException e) {

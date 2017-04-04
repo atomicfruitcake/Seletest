@@ -16,7 +16,7 @@ task createGradleWrapper(type: Wrapper) {
 
 jar {
  manifest {
-  attributes 'Implementation-Title': 'acceptance-tests', 'Implementation-Version': version
+  attributes 'Implementation-Title': 'seletest', 'Implementation-Version': version
  }
 }
 

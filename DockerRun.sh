@@ -1,12 +1,17 @@
 #!/bin/bash/
 
-#Starts up docker selenium hub with chrome node
-#Author atomicfruitcake
+# Starts up docker selenium hub with chrome node
+# Author atomicfruitcake
 
 echo "Please ensure Docker image is deleted from virtualbox GUI"
 
-# Remove old machine if exists
-docker-machine rm -f default
+# Remove machine is exists
+if [ $(docker-machine ls | wc -l) -eq 1 ]; 
+then
+	echo "No default docker machine detected, starting docker-machine"
+else
+	docker-machine rm -f default
+fi
 
 
 # Create a new machine called default using a virtualbox driver
