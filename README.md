@@ -63,7 +63,7 @@ This can be used to select by name/id/value etc... in the following form for max
 CommonFunctions.clickElement(driver, "[id='elementID']");
 ```
 
-#Supported Browsers
+# Supported Browsers
 The following table shows browser support for Standard (Tests using BrowserBasePage), Docker (tests using DockerBasePage), and Proxy (tests using ProxyBasePage).
 
 | Browser           | Standard | Docker | Proxy |
@@ -76,16 +76,16 @@ The following table shows browser support for Standard (Tests using BrowserBaseP
  
  To change browsers, edit the 4th Line of the settings file.
 
-#Docker Testing
+# Dockerized Testing
 Seletest supports testing inside of docker containers. If you are testing on Mac, Windows or Linux, please refer to the indvidual documentation at https://docs.docker.com/ . For Mac and Windows users, the DockerRun.sh script can be run to download a boot2docker iso and run the image on virtualbox to spin up docker images inside containers. Linux users with docker installed will be able to user docker-compose.yml file directly to 
 spin up the images. By default, the docker-compose.yml will run a Selenium Hub at port 4444, along with two attached Chrome and Firefox debug nodes. Debug nodes come with a VNC server inside and therefore 
 
 To run tests inside the containers, the DockerBasePage can be extended. Note the containers must be running before the tests begin. Also note that the DOCKER_SELENIUM_URL may need to be changed based upon whether you are using docker natively or with boot2docker.
 
-##parallelized Docker
+## parallelized Docker
 Another feature of using docker containers to run tests is running tests in parallel in different containers. E.g. run tests in Firefox and Chrome simultaneously. This is configured using TestNGParallel.xml with test/ExampleParallelDockerTest.java . Check out those files for more information.
 
-#Tips
+# Tips
 * Use the CommonFunctions functions over the standard Selenium functions. If a functions does not exist in CommonFunctions, add it and then submit it to this project!
 * Remove all hardcoded data from tests and keep it in properties. 
 * Currently only Chrome is supported. To add other browsers, add the drivers to the WebDrivers folder and update the properties file.
