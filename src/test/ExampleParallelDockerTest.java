@@ -86,7 +86,7 @@ public class ExampleParallelDockerTest {
 
     @Test
     public void parallelDockerTestFirefox() {
-	
+
 	googleEasterEggs(dockerizedFirefoxBrowser());
     }
 }
