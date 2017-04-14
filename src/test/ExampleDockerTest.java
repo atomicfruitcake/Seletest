@@ -40,7 +40,7 @@ public class ExampleDockerTest extends DockerBasePage {
 		// Click to search
 		CommonFunctions.clickElement(driver, "#_fZl > span > svg");
 		
-		// Wait for 10 seconds
+		// Wait for 8 seconds
 		CommonFunctions.threadSleep(8);
 	}	
     }

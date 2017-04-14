@@ -15,7 +15,11 @@ fi
 
 
 # Create a new machine called default using a virtualbox driver
-docker-machine create --driver virtualbox default
+docker-machine create \
+	--driver virtualbox \
+	--virtualbox-boot2docker-url https://github.com/boot2docker/boot2docker/releases/download/v1.12.3/boot2docker.iso \
+	default
+
 eval "$(docker-machine env default)"
 
 # Print the machines IP (should be 192.168.99.100 by default on boot2docker, or localhost if not)

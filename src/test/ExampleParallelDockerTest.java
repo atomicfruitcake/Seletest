@@ -20,12 +20,12 @@ import common.CommonFunctions;
  * @author atomicfruitcake
  *
  */
-
+/*
+ * Allows TestNGParallel.xml to run Firefox and Chrome tests
+ * in parallel inside docker containers
+ */
 public class ExampleParallelDockerTest {
     
-    private static WebDriver chromeDriver;
-    private static WebDriver firefoxDriver;
-
     // Simple Google Easter egg to demonstrate automation
     public void googleEasterEggs(WebDriver driver) {
 	// Start the browser at google homepage
@@ -44,48 +44,49 @@ public class ExampleParallelDockerTest {
 	    // Click to search
 	    CommonFunctions.clickElement(driver, "#_fZl > span > svg");
 
-	    // Wait for 10 seconds
+	    // Wait for 8 seconds
 	    CommonFunctions.threadSleep(8);
+	}
+	
+	// Quit browser
+	if(driver!=null){
+	    driver.quit();
 	}
     }
     
-    public void startDockerizedChromeBrowser() {
+    public WebDriver dockerizedChromeBrowser() {
 	DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 	capabilities.setBrowserName("chrome");
 	capabilities.setPlatform(Platform.LINUX);
 	try {
-	    chromeDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
+	    return new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
 	} catch (MalformedURLException e) {
 	    e.printStackTrace();
+	    return null;
 	}
+	
     }
 
-    public void startDockerizedFirefoxBrowser() {
+    public WebDriver dockerizedFirefoxBrowser() {
 	DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 	capabilities.setBrowserName("firefox");
 	capabilities.setPlatform(Platform.LINUX);
 	try {
-	    firefoxDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
+	    return new RemoteWebDriver(new URL(DOCKER_SELENIUM), capabilities);
 	} catch (MalformedURLException e) {
 	    e.printStackTrace();
+	    return null;
 	}
     }
 
     @Test
     public void parallelDockerTestChrome() {
-	startDockerizedChromeBrowser();
-	googleEasterEggs(chromeDriver);
-	if (chromeDriver != null) {
-	    chromeDriver.quit();
-	}
+	googleEasterEggs(dockerizedChromeBrowser());
     }
 
     @Test
     public void parallelDockerTestFirefox() {
-	startDockerizedFirefoxBrowser();
-	googleEasterEggs(firefoxDriver);
-	if (firefoxDriver != null) {
-	    firefoxDriver.quit();
-	}
+	
+	googleEasterEggs(dockerizedFirefoxBrowser());
     }
 }

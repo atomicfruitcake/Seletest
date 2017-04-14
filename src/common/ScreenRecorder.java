@@ -13,9 +13,8 @@ public class ScreenRecorder {
 	GraphicsConfiguration graphicsConfiguration = GraphicsEnvironment
 		.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 		.getDefaultConfiguration();
-	
+
 	screenRecorder = new ScreenRecorder();
-	
 	screenRecorder.startRecording();
     }
 
