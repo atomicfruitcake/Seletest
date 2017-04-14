@@ -34,7 +34,7 @@ Take screenshot on fail toggle
 Name of test Suite  
 Update Slack Toggle  
 ```
-git bash
+
 And here is an example settings.txt  
 
 ```
@@ -82,10 +82,11 @@ spin up the images. By default, the docker-compose.yml will run a Selenium Hub a
 
 To run tests inside the containers, the DockerBasePage can be extended. Note the containers must be running before the tests begin. Also note that the DOCKER_SELENIUM_URL may need to be changed based upon whether you are using docker natively or with boot2docker.
 
-## {arallelized Docker
+
+## parallelized Docker
 Another feature of using docker containers to run tests is running tests in parallel in different containers. E.g. run tests in Firefox and Chrome simultaneously. This is configured using TestNGParallel.xml with test/ExampleParallelDockerTest.java . Check out those files for more information.
 
-#Tips
+# Tips
 * Use the CommonFunctions functions over the standard Selenium functions. If a functions does not exist in CommonFunctions, add it and then submit it to this project!
 * Remove all hardcoded data from tests and keep it in properties. 
 * Currently only Chrome is supported. To add other browsers, add the drivers to the WebDrivers folder and update the properties file.

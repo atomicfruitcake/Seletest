@@ -8,13 +8,13 @@ public class Properties {
     
     // Default settings
     public static final String DEFAULT_SETTINGS = "IAT \n"
-	    + "env"
-	    + "username"
-	    + "password"
-	    + "Phantom"
-	    + "NoUpdateJira"
-	    + "YesScreenshot"
-	    + "test";
+	    + "env \n"
+	    + "username \n"
+	    + "password \n"
+	    + "Phantom \n"
+	    + "NoUpdateJira \n"
+	    + "YesScreenshot \n"
+	    + "test \n";
     public static final String SETTINGS_FILE = "settings.txt";
 
     // Login Details
