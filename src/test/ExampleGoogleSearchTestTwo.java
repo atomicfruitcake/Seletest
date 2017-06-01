@@ -8,7 +8,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 
 import common.CommonFunctions;
-import common.basepage.BrowserBasePage;
+import common.driverHandler.LocalDriverHandlerImpl;
 
 /**
  * @author atomicfruitcake
@@ -19,7 +19,7 @@ import common.basepage.BrowserBasePage;
  *
  */
 @Test
-public class ExampleGoogleSearchTestTwo extends BrowserBasePage {
+public class ExampleGoogleSearchTestTwo extends LocalDriverHandlerImpl {
     public void GooglerEasterEggTest() {
 
 	// Start the browser at google homepage

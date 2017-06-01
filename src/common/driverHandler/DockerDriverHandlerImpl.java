@@ -1,4 +1,4 @@
-package common.basepage;
+package common.driverHandler;
 
 import static common.Properties.DOCKER_SELENIUM;
 
@@ -25,9 +25,9 @@ import common.JIRAUpdater;
  * @author atomicfruitcake
  *
  */
-public abstract class DockerBasePage implements Basepage {
+public abstract class DockerDriverHandlerImpl implements AbstractDriverHandler {
 
-    private static final Logger LOGGER = Logger.getLogger(DockerBasePage.class
+    private static final Logger LOGGER = Logger.getLogger(DockerDriverHandlerImpl.class
 	    .getName());
 
     public static WebDriver driver;

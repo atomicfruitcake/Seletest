@@ -1,4 +1,4 @@
-package common.basepage;
+package common.driverHandler;
 
 import static common.Properties.CHROME;
 import static common.Properties.FIREFOX;
@@ -28,7 +28,7 @@ import common.JIRAUpdater;
  * @author atomicfruitcake
  *
  */
-public abstract class BrowserBasePage implements Basepage {
+public abstract class LocalDriverHandlerImpl implements AbstractDriverHandler {
 
     public static WebDriver driver;
 

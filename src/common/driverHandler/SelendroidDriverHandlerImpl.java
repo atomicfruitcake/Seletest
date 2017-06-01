@@ -1,4 +1,4 @@
-package common.basepage;
+package common.driverHandler;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -24,9 +24,9 @@ import io.selendroid.standalone.SelendroidLauncher;
  * @author atomicfruitcake
  *
  */
-public abstract class SelendroidBasePage implements Basepage{
+public abstract class SelendroidDriverHandlerImpl implements AbstractDriverHandler{
     private static final Logger LOGGER = Logger
-	    .getLogger(SelendroidBasePage.class.getName());
+	    .getLogger(SelendroidDriverHandlerImpl.class.getName());
 
     public static WebDriver driver;
     public static SelendroidLauncher selendroidServer;

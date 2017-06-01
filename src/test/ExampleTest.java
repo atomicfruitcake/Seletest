@@ -5,7 +5,7 @@ import static common.Properties.EXAMPLE;
 import org.testng.annotations.Test;
 
 import common.CommonFunctions;
-import common.basepage.BrowserBasePage;
+import common.driverHandler.LocalDriverHandlerImpl;
 
 /**
  * @author atomicfruitcake
@@ -17,7 +17,7 @@ import common.basepage.BrowserBasePage;
  * maintainable.
  */
 @Test
-public class ExampleTest extends BrowserBasePage {
+public class ExampleTest extends LocalDriverHandlerImpl {
     public void JIRAID() {
 
 	// Open a webpage

@@ -1,4 +1,4 @@
-package common.basepage;
+package common.driverHandler;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeSuite;
  * @author sambass
  *
  */
-public abstract interface Basepage {
+public abstract interface AbstractDriverHandler {
 
     @BeforeSuite
     public void beforeSuite();

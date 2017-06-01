@@ -4,8 +4,9 @@ import org.testng.annotations.Test;
 
 import common.CommonFunctions;
 import common.CommonMethods;
-import common.basepage.BrowserBasePage;
 import common.ScreenRecorder;
+import common.driverHandler.LocalDriverHandlerImpl;
+
 import static common.Properties.GOOGLE;
 import static common.Properties.GOOGLE_SEARCH_TERM;
 
@@ -18,7 +19,7 @@ import static common.Properties.GOOGLE_SEARCH_TERM;
  *
  */
 @Test
-public class ExampleScreenRecord extends BrowserBasePage {
+public class ExampleScreenRecord extends LocalDriverHandlerImpl {
     public void recordGoogleSearch() {
 	// Start the recording
 	//ScreenRecorder.startRecording();

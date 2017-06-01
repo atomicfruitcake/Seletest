@@ -1,4 +1,4 @@
-package common.basepage;
+package common.driverHandler;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -26,9 +26,9 @@ import common.JIRAUpdater;
  * @author atomicfruitcake
  *
  */
-public abstract class ProxyBasePage implements Basepage{
+public abstract class ProxyDriverHandlerImpl implements AbstractDriverHandler{
 
-    private static final Logger LOGGER = Logger.getLogger(ProxyBasePage.class
+    private static final Logger LOGGER = Logger.getLogger(ProxyDriverHandlerImpl.class
 	    .getName());
 
     public static WebDriver driver;

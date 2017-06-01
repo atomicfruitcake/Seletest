@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import common.CommonFunctions;
 import common.CommonMethods;
-import common.basepage.ProxyBasePage;
+import common.driverHandler.ProxyDriverHandlerImpl;
 
 /**
  * @author atomicfruitcake
@@ -17,7 +17,7 @@ import common.basepage.ProxyBasePage;
  * We will see if a given string can be found in the har file to pass/fail the test 
  */
 @Test
-public class ExampleProxyTest extends ProxyBasePage{
+public class ExampleProxyTest extends ProxyDriverHandlerImpl{
     public void proxyTest() {
 	
 	// Start reading network traffic from the Proxy Server

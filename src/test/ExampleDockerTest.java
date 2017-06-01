@@ -8,7 +8,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 
 import common.CommonFunctions;
-import common.basepage.DockerBasePage;
+import common.driverHandler.DockerDriverHandlerImpl;
 
 /**
  * @author atomicfruitcake
@@ -21,7 +21,7 @@ import common.basepage.DockerBasePage;
  * docker, see https://www.docker.com
  */
 @Test
-public class ExampleDockerTest extends DockerBasePage {
+public class ExampleDockerTest extends DockerDriverHandlerImpl {
     public void DockerTest() {
 	
 	// Start the browser at google homepage
