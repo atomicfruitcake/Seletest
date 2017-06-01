@@ -23,7 +23,7 @@ public abstract class CommonMethods {
 	CommonFunctions.sendKeysToElement(driver, "[name='q']", searchTerm);
 
 	// Search for the given search term
-	CommonFunctions.clickElement(driver, "#sblsbb button span");
+	CommonFunctions.clickElement(driver, "#_fZl");
     }
 
     public static void loginToMailinator(WebDriver driver) {
