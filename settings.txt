@@ -1,7 +1,8 @@
 env
 username
 password
-firefox
+chrome
 NoUpdateJira
 YesScreenshot
 test
+noUpdateSlack
