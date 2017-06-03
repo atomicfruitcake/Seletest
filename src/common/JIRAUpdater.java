@@ -15,9 +15,6 @@ import java.util.logging.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 
-import common.CommonFunctions;
-import common.JIRAUpdater;
-
 /**
  * @author atomicfruitcake
  *
@@ -117,7 +114,7 @@ public class JIRAUpdater {
 	transitionJiraTicket(jiraID, "41");
 	transitionJiraTicket(jiraID, "51");
 	commentJiraTicket(jiraID, "Tested by Automation and passed on "
-		+ CommonFunctions.getEnvironment() + " in " + timeTaken
+		+ SettingsReader.getEnvironment() + " in " + timeTaken
 		+ " seconds :)");
     }
 
@@ -127,20 +124,20 @@ public class JIRAUpdater {
 	transitionJiraTicket(jiraID, "41");
 	transitionJiraTicket(jiraID, "61");
 	commentJiraTicket(jiraID, "Tested by Automation and failed on "
-		+ CommonFunctions.getEnvironment() + " in " + timeTaken
+		+ SettingsReader.getEnvironment() + " in " + timeTaken
 		+ " seconds :(");
     }
 
     public static void updateJiraTicket(ITestResult result, Method method,
 	    WebDriver driver) throws Exception, IOException,
 	    InterruptedException {
-	switch (CommonFunctions.getUpdateJira().toLowerCase()) {
+	switch (SettingsReader.getUpdateJira().toLowerCase()) {
 	case "yesupdatejira":
 	    if (result.getStatus() == ITestResult.FAILURE) {
 		JIRAUpdater.FailTicket(method.getName(), String.valueOf((result
 			.getEndMillis() - result.getStartMillis()) / 1000L));
 		LOGGER.info(method.getName() + " : FAILED");
-		CommonFunctions.screenshot(method.getName() + " Fail", driver);
+		DriverFunctions.screenshot(method.getName() + " Fail", driver);
 	    } else if (result.getStatus() == ITestResult.SUCCESS) {
 		JIRAUpdater.PassTicket(method.getName(), String.valueOf((result
 			.getEndMillis() - result.getStartMillis()) / 1000L));
@@ -149,7 +146,7 @@ public class JIRAUpdater {
 	case "noupdatejira":
 	    if (result.getStatus() == ITestResult.FAILURE) {
 		LOGGER.info(method.getName() + " : FAILED");
-		CommonFunctions.screenshot(method.getName() + " Fail", driver);
+		DriverFunctions.screenshot(method.getName() + " Fail", driver);
 	    } else if (result.getStatus() == ITestResult.SUCCESS) {
 		LOGGER.info(method.getName() + " : PASSED");
 	    }

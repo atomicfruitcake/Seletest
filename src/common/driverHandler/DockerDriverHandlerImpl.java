@@ -20,6 +20,7 @@ import org.testng.annotations.BeforeSuite;
 
 import common.CommonFunctions;
 import common.JIRAUpdater;
+import common.SettingsReader;
 
 /**
  * @author atomicfruitcake
@@ -39,7 +40,7 @@ public abstract class DockerDriverHandlerImpl implements AbstractDriverHandler {
 
     @BeforeMethod(alwaysRun = true)
     public void startup() throws IOException {
-	String browser = CommonFunctions.getBrowser().toLowerCase();
+	String browser = SettingsReader.getBrowser().toLowerCase();
 	LOGGER.info("Starting dockerised browser: " + browser);
 
 	if (browser == null) {

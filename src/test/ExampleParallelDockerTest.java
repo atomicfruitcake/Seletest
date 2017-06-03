@@ -15,6 +15,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.Test;
 
 import common.CommonFunctions;
+import common.DriverFunctions;
 
 /**
  * @author atomicfruitcake
@@ -29,7 +30,7 @@ public class ExampleParallelDockerTest {
     // Simple Google Easter egg to demonstrate automation
     public void googleEasterEggs(WebDriver driver) {
 	// Start the browser at google homepage
-	CommonFunctions.startBrowser(driver, GOOGLE);
+	DriverFunctions.startBrowser(driver, GOOGLE);
 
 	List<String> googleSearches = new ArrayList<String>();
 	googleSearches.add("zerg rush");
@@ -39,10 +40,10 @@ public class ExampleParallelDockerTest {
 
 	for (String search : googleSearches) {
 	    // Enter search query
-	    CommonFunctions.sendKeysToElement(driver, "#lst-ib", search);
+	    DriverFunctions.sendKeysToElement(driver, "#lst-ib", search);
 
 	    // Click to search
-	    CommonFunctions.clickElement(driver, "#_fZl > span > svg");
+	    DriverFunctions.clickElement(driver, "#_fZl > span > svg");
 
 	    // Wait for 8 seconds
 	    CommonFunctions.threadSleep(8);

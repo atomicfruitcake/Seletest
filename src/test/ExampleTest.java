@@ -4,7 +4,7 @@ import static common.Properties.EXAMPLE;
 
 import org.testng.annotations.Test;
 
-import common.CommonFunctions;
+import common.DriverFunctions;
 import common.driverHandler.LocalDriverHandlerImpl;
 
 /**
@@ -21,9 +21,9 @@ public class ExampleTest extends LocalDriverHandlerImpl {
     public void JIRAID() {
 
 	// Open a webpage
-	CommonFunctions.startBrowser(driver, EXAMPLE);
+	DriverFunctions.startBrowser(driver, EXAMPLE);
 
 	// Assert the URL
-	CommonFunctions.pageAssert(driver, EXAMPLE);
+	DriverFunctions.pageAssert(driver, EXAMPLE);
     }
 }

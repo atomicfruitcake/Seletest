@@ -23,6 +23,7 @@ import org.testng.annotations.BeforeSuite;
 
 import common.CommonFunctions;
 import common.JIRAUpdater;
+import common.SettingsReader;
 
 /**
  * @author atomicfruitcake
@@ -40,7 +41,7 @@ public abstract class LocalDriverHandlerImpl implements AbstractDriverHandler {
     @BeforeMethod(alwaysRun = true)
     public void startup() throws IOException {
 
-	switch (CommonFunctions.getBrowser().toLowerCase()) {
+	switch (SettingsReader.getBrowser().toLowerCase()) {
 	case "chrome": {
 	    System.setProperty("webdriver.chrome.driver", CHROME);
 	    driver = new ChromeDriver();
