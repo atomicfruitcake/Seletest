@@ -6,19 +6,19 @@ import java.awt.GraphicsEnvironment;
 
 public class ScreenRecorder {
 
-    private ScreenRecorder screenRecorder;
+    private static ScreenRecorder screenRecorder;
 
-    public void startRecording() throws Exception {
+    public static void startRecording() throws Exception {
 
 	GraphicsConfiguration graphicsConfiguration = GraphicsEnvironment
 		.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 		.getDefaultConfiguration();
 
 	screenRecorder = new ScreenRecorder();
-	screenRecorder.startRecording();
+	ScreenRecorder.startRecording();
     }
 
-    public void stopRecording() throws Exception {
-	screenRecorder.stopRecording();
+    public static void stopRecording() throws Exception {
+	ScreenRecorder.stopRecording();
     }
 }

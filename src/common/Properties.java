@@ -18,10 +18,10 @@ public class Properties {
     public static final String SETTINGS_FILE = "settings.txt";
 
     // Login Details
-    public static final String USERNAME = CommonFunctions.getUsername();
+    public static final String USERNAME = SettingsReader.getUsername();
     public String NEWUSERNAME = CommonFunctions.getRandomUsername();
     public final String NEWUSERNAMEEMAIL = NEWUSERNAME + "@somewhere.com";
-    public static final String PASSWORD = CommonFunctions.getPassword();
+    public static final String PASSWORD = SettingsReader.getPassword();
 
     // Server Details
     public static final String SERVERIP = "";

@@ -8,6 +8,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 
 import common.CommonFunctions;
+import common.DriverFunctions;
 import common.driverHandler.DockerDriverHandlerImpl;
 
 /**
@@ -25,7 +26,7 @@ public class ExampleDockerTest extends DockerDriverHandlerImpl {
     public void DockerTest() {
 	
 	// Start the browser at google homepage
-	CommonFunctions.startBrowser(driver, GOOGLE);
+	DriverFunctions.startBrowser(driver, GOOGLE);
 	
 	List<String> googleSearches = new ArrayList<String>();
 	googleSearches.add("zerg rush");
@@ -35,10 +36,10 @@ public class ExampleDockerTest extends DockerDriverHandlerImpl {
 	
 	for (String search : googleSearches) {
 	    	// Enter search query
-		CommonFunctions.sendKeysToElement(driver, "#lst-ib", search);
+		DriverFunctions.sendKeysToElement(driver, "#lst-ib", search);
 		
 		// Click to search
-		CommonFunctions.clickElement(driver, "#_fZl > span > svg");
+		DriverFunctions.clickElement(driver, "#_fZl > span > svg");
 		
 		// Wait for 8 seconds
 		CommonFunctions.threadSleep(8);
