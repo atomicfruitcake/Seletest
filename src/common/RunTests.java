@@ -2,6 +2,10 @@ package common;
 
 import java.io.IOException;
 
+/**
+ * @author atomicfruitcake
+ *
+ */
 public class RunTests {
 
     // Builds and runs the Test Suite

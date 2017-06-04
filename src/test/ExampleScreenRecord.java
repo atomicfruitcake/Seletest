@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 import common.DriverFunctions;
 import common.CommonMethods;
-import common.ScreenRecorder;
+import common.VideoRecorder;
 import common.driverHandler.LocalDriverHandlerImpl;
 
 import static common.Properties.GOOGLE;
@@ -22,7 +22,7 @@ import static common.Properties.GOOGLE_SEARCH_TERM;
 public class ExampleScreenRecord extends LocalDriverHandlerImpl {
     public void recordGoogleSearch() throws Exception {
 	// Start the recording
-	ScreenRecorder.startRecording();
+	//VideoRecorder.startRecording();
 
 	// Start browser on Google
 	DriverFunctions.startBrowser(driver, GOOGLE);
@@ -34,6 +34,6 @@ public class ExampleScreenRecord extends LocalDriverHandlerImpl {
 	DriverFunctions.pageAssert(driver, GOOGLE + "#q=" + GOOGLE_SEARCH_TERM);
 
 	// Stop the recording
-	ScreenRecorder.stopRecording();
+	//VideoRecorder.stopRecording();
     }
 }

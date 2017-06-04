@@ -23,6 +23,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+/**
+ * @author atomicfruitcake
+ *
+ */
 public class DriverFunctions {
     
     private static final Logger LOGGER = Logger.getLogger(DriverFunctions.class
